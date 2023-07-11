@@ -88,15 +88,26 @@ if (!isset($_SESSION['nama'])) {
                 <div class="col-12">
                 <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Input Data Role</h4>
+                                <h4 class="card-title">Input Data Bank</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form method="POST" action="./controller/role/add.php">
+                                    <form method="POST" action="./controller/fasilitas/add.php" enctype="multipart/form-data">
+                                       <div class="row">
+                                        <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <input type="text" class="form-control input-default " placeholder="Role Name" name="role">
+                                            <label>Icon Fasilitas</label>
+                                            <input type="file" class="form-control input-default " name="photo" >
                                         </div>
-                                        <a class="btn btn-sm btn-warning text-white" href="./dataRole.php">Kembali</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Nama Fasilitas</label>
+                                            <input type="text" class="form-control input-default " placeholder="Nama Fasilitas" name="nama_fasilitas" >
+                                        </div>
+                                        </div>
+                                       </div>
+                                        <a class="btn btn-sm btn-warning text-white" href="./dataFasilitas.php">Kembali</a>
                                         <button class="btn btn-sm btn-primary float-right text-white" name="submit" type="submit">Save</button>
                                     </form>
                                 </div>

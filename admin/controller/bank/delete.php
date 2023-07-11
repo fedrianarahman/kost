@@ -5,7 +5,7 @@ include '../conn.php';
 $id = $_GET['id'];
 
 // mengahpus data dari parameter id yang dilempar
-$deleteData = mysqli_query($conn, "DELETE FROM `role` WHERE id = '$id'");
+$deleteData = mysqli_query($conn, "DELETE FROM `bank` WHERE id = '$id'");
 
 if ($deleteData) {
     $_SESSION['status-info'] = "Data Role Berhasil Dihapus";
@@ -13,6 +13,6 @@ if ($deleteData) {
     $_SESSION['status-fail'] = "Data Role Tidak Berhasil Dihapus";
 }
 
-header("Location:../../dataRole.php");
+header("Location:../../dataAkunBank.php");
 
 ?>

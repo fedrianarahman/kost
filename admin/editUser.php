@@ -1,6 +1,7 @@
 <?php
 session_start();
 include './controller/conn.php';
+$id = $_GET['id'];
 // Cek apakah sesi login telah diatur
 if (!isset($_SESSION['nama'])) {
     header("Location: ./auth/login.php");
@@ -88,15 +89,67 @@ if (!isset($_SESSION['nama'])) {
                 <div class="col-12">
                 <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Input Data Role</h4>
+                                <h4 class="card-title">Input Data User</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form method="POST" action="./controller/role/add.php">
+                                    <form method="POST" action="./controller/user/update.php">
+                                    <?php
+                                        $getData = mysqli_query($conn, "SELECT * FROM user WHERE id = '$id'");
+                                        while ($dataUser = mysqli_fetch_array($getData)) {
+                                        ?>
+                                         <div class="row">
+                                        <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <input type="text" class="form-control input-default " placeholder="Role Name" name="role">
+                                            <label>Nama</label>
+                                            <input hide type="text" class="form-control input-default " placeholder="Name" hidden name="id" required value="<?php echo $dataUser['id']?>">
+                                            <input type="text" class="form-control input-default " placeholder="Name" hidden name="created_at" required value="<?php echo $dataUser['created_at']?>">
+                                            <input type="text" class="form-control input-default " placeholder="Name" name="nama" required value="<?php echo $dataUser['nama']?>">
                                         </div>
-                                        <a class="btn btn-sm btn-warning text-white" href="./dataRole.php">Kembali</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control input-default " placeholder="Email" name="email" required value="<?php echo $dataUser['email']?>">
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>No HP</label>
+                                            <input type="text" class="form-control input-default " placeholder="NO HP" name="no_telpon" value="<?php echo $dataUser['no_telpon']?>">
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Role</label>
+                                            <select name="role" id="role" class="form-control">
+                                                <option>Pilih</option>
+                                                <?php
+                                                $getDataRole = mysqli_query($conn, "SELECT * FROM role");
+                                                while ($dataRole = mysqli_fetch_array($getDataRole)) {
+                                                ?>
+                                                <option value="<?php echo $dataRole['id']?>" <?php if ($dataUser['role_id']==$dataRole['id']) {
+                                                    echo 'selected';
+                                                }?>><?php echo $dataRole['nama_role']?></option>
+                                                <?php }?>
+                                            </select>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Username</label>
+                                            <input type="text" class="form-control input-default " placeholder="Username" name="username" value="<?php echo $dataUser['username']?>">
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control input-default " placeholder="Password" name="password" value="<?php echo $dataUser['password']?>">
+                                        </div>
+                                        </div>
+                                       </div>
+                                        <?php }?>
+                                        <a class="btn btn-sm btn-warning text-white" href="./dataUser.php">Kembali</a>
                                         <button class="btn btn-sm btn-primary float-right text-white" name="submit" type="submit">Save</button>
                                     </form>
                                 </div>

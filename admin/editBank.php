@@ -1,6 +1,7 @@
 <?php
 session_start();
 include './controller/conn.php';
+$id = $_GET['id'];
 // Cek apakah sesi login telah diatur
 if (!isset($_SESSION['nama'])) {
     header("Location: ./auth/login.php");
@@ -88,15 +89,49 @@ if (!isset($_SESSION['nama'])) {
                 <div class="col-12">
                 <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Input Data Role</h4>
+                                <h4 class="card-title">Input Data Bank</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form method="POST" action="./controller/role/add.php">
+                                    <form method="POST" action="./controller/bank/update.php" enctype="multipart/form-data">
+                                        <?php
+                                        $getData = mysqli_query($conn, "SELECT * FROM bank WHERE id ='$id'");
+                                        while ($dataBank = mysqli_fetch_array($getData)) {
+                                        ?>
+                                         <div class="row">
+                                        <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <input type="text" class="form-control input-default " placeholder="Role Name" name="role">
+                                            <label>Photo Bank</label>
+                                            <input type="file" class="form-control input-default " name="photo" >
                                         </div>
-                                        <a class="btn btn-sm btn-warning text-white" href="./dataRole.php">Kembali</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Nama Bank</label>
+                                            <input hidden type="text" class="form-control input-default " placeholder="Nama Bank" name="id" value="<?php echo $dataBank['id']?>">
+                                            <input hidden type="text" class="form-control input-default " placeholder="Nama Bank" name="created_at" value="<?php echo $dataBank['created_at']?>">
+                                            <input hidden type="text" class="form-control input-default " placeholder="Nama Bank" name="old_photo" value="<?php echo $dataBank['photo']?>">
+                                            <input type="text" class="form-control input-default " placeholder="Nama Bank" name="nama_bank" value="<?php echo $dataBank['nama_bank']?>">
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Nama Pemilik</label>
+                                            <input type="text" class="form-control input-default " placeholder="Nama Pemilik" name="nama_pemilik" value="<?php echo $dataBank['nama_pemilik']?>">
+                                        </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>No Rekening</label>
+                                            <input type="text" class="form-control input-default " placeholder="No Rekening" name="no_rekening" value="<?php echo $dataBank['no_rek']?>">
+                                        </div>
+                                        </div>
+                                       
+                                       </div>
+                                        <?php }?>
+                                      
+                                        <a class="btn btn-sm btn-warning text-white" href="./dataAkunBank.php">Kembali</a>
                                         <button class="btn btn-sm btn-primary float-right text-white" name="submit" type="submit">Save</button>
                                     </form>
                                 </div>

@@ -13,25 +13,24 @@ if (!isset($_SESSION['nama'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
+	<meta charset="utf-8">
     <meta name="keywords" content="">
-    <meta name="author" content="">
-    <meta name="robots" content="">
+	<meta name="author" content="">
+	<meta name="robots" content="">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Zenix - Crypto Admin Dashboard">
-    <meta property="og:title" content="Zenix - Crypto Admin Dashboard">
-    <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
-    <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
-    <meta name="format-detection" content="telephone=no">
+	<meta name="description" content="Zenix - Crypto Admin Dashboard">
+	<meta property="og:title" content="Zenix - Crypto Admin Dashboard">
+	<meta property="og:description" content="Zenix - Crypto Admin Dashboard">
+	<meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
+	<meta name="format-detection" content="telephone=no">
     <title>Zenix - Crypto Admin Dashboard </title>
     <!-- Favicon icon -->
     <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
-    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
+	
 </head>
-
 <body>
 
     <!--*******************
@@ -56,14 +55,15 @@ if (!isset($_SESSION['nama'])) {
         <!--**********************************
             Nav header start
         ***********************************-->
-        <?php include './include/navHeader.php' ?>
+        <?php include './include/navHeader.php'?>
         <!--**********************************
             Nav header end
         ***********************************-->
-        <!--**********************************
+		
+		<!--**********************************
             Header start
         ***********************************-->
-        <?php include './include/navbar.php' ?>
+       <?php include './include/navbar.php'?>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -77,18 +77,16 @@ if (!isset($_SESSION['nama'])) {
         <!--**********************************
             Sidebar end
         ***********************************-->
-
-        <!--**********************************
+		
+		<!--**********************************
             Content body start
         ***********************************-->
         <div class="content-body">
-
-            <div class="container-fluid">
-                <?php include './include/welcomeBack.php' ?>
-                <div class="row">
-                    <div class="col-lg-12">
-                        
-                        <?php
+			<div class="container-fluid">
+                <?php include './include/welcomeBack.php'?>
+				<div class="row">
+                <div class="col-12">
+                <?php
                         if (isset($_SESSION['status-info'])) {
                             echo '
                             <div class="alert alert-success alert-dismissible fade show">
@@ -114,47 +112,52 @@ if (!isset($_SESSION['nama'])) {
                         ?>
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Data Role User</h4>
-                                <a href="./addRole.php" class="btn btn-sm btn-info">+ Add Role</a>
+                                <h4 class="card-title">Data Bank</h4>
+                                <a href="./addFasilitas.php" class="btn btn-sm btn-info">+ Add Data Fasilitas</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-responsive-md">
+                                    <table id="example3" class="display" style="min-width: 845px">
                                         <thead>
                                             <tr>
-                                                <th style="width:80px;"><strong>#</strong></th>
-                                                <th><strong>Role</strong></th>
-                                                <th><strong>Aksi</strong></th>
+                                                <th>#</th>
+                                                <th>Photo</th>
+                                                <th>Fasilitas</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $getRole = mysqli_query($conn, "SELECT * FROM role ");
+                                            // get data
+                                            $getDataFasilitas = mysqli_query($conn, "SELECT * FROM fasilitas ");
                                             $i = 1;
-                                            while ($dataRole = mysqli_fetch_array($getRole)) {
+                                            while ($dataFasilitas = mysqli_fetch_array($getDataFasilitas)) {
                                             ?>
-                                             <tr>
+                                            <tr>
                                                 <td><?php echo $i?></td>
-                                                <td><?php echo $dataRole['nama_role']?></td>
                                                 <td>
-                                                    <div class="d-flex">
-                                                        <a href="./editRole.php?id=<?php echo $dataRole['id']?>" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                                        <a href="./controller/role/delete.php?id=<?php echo $dataRole['id']?>" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                                    </div>
+                                                    <img src="./images/image-content/<?php echo $dataFasilitas['photo']?>" width="50" alt="">
                                                 </td>
+                                                <td><?php echo $dataFasilitas['nama_fasilitas']?></td>
+                                                <td>
+													<div class="d-flex">
+														<a href="./editFasilitas.php?id=<?php echo $dataFasilitas['id']?>" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+														<a href="./controller/fasilitas/delete.php?id=<?php echo $dataFasilitas['id']?>" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+													</div>												
+												</td>												
                                             </tr>
                                             <?php $i++?>
-                                            <?php }?>   
+                                            <?php }?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-            </div>
-        </div>
+				</div>
+				
+			</div>
+		</div>
         <!--**********************************
             Content body end
         ***********************************-->
@@ -166,12 +169,12 @@ if (!isset($_SESSION['nama'])) {
         <!--**********************************
             Footer end
         ***********************************-->
-
-
-
-
-
-        <!--**********************************
+		
+		
+		
+		
+		
+		<!--**********************************
            Support ticket button start
         ***********************************-->
 
@@ -188,17 +191,15 @@ if (!isset($_SESSION['nama'])) {
     <!--**********************************
         Scripts
     ***********************************-->
-    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="vendor/global/global.min.js"></script>
-    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <!-- Datatable -->
     <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="js/plugins-init/datatables.init.js"></script>
     <script src="js/custom.min.js"></script>
-    <script src="js/deznav-init.js"></script>
+	<script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
     <script src="js/styleSwitcher.js"></script>
-                                                
-</body>
 
+</body>
 </html>

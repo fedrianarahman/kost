@@ -1,3 +1,39 @@
+<?php
+session_start();
+include '../controller/conn.php';
+
+if (isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $cekDataUser = mysqli_query($conn, "SELECT user.id AS id_user, user.nama AS nama_user, user.email AS email_user, user.no_telpon AS no_hp_user, user.photo AS photo_user, user.username AS username_user, user.password AS password_user,user.created_at AS created_at ,role.nama_role AS role_user FROM user INNER JOIN role ON role.id = user.role_id");
+
+    $loggedIn = false; // Flag untuk menandakan status login
+
+    while ($result = mysqli_fetch_array($cekDataUser)) {
+        if ($username == $result['username_user'] && $password == $result['password_user']) {
+            $loggedIn = true;
+            $_SESSION['nama'] = $result['nama_user'];
+            $_SESSION['email'] = $result['email_user'];
+            $_SESSION['no_hp'] = $result['no_hp_user'];
+            $_SESSION['level'] = $result['role_user'];
+            $_SESSION['username'] = $result['username_user'];
+			$_SESSION['password'] = $result['password_user'];
+			$_SESSION['photo'] = $result['photo_user'];
+			$_SESSION['joined_at'] = $result['created_at'];
+            break; // Keluar dari loop jika data ditemukan
+        }
+    }
+    
+    if ($loggedIn) {
+        header("Location: ../index.php");
+        exit();
+    } else {
+        $error = true;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
@@ -30,19 +66,24 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
 									<div class="text-center mb-3">
-										<img src="../images/logo-full.png" alt="">
+										<img src="" alt="">
 									</div>
                                     <h4 class="text-center mb-4">Sign in your account</h4>
-                                    <form action="index.html">
+                                    <?php
+                                    if (isset($error)) : ?>
+                                        <p style="color:red; font-style: italic; text-align: center;">username / password salah <?php echo $username?></p>
+
+                                    <?php endif; ?>
+                                    <form method="POST">
                                         <div class="form-group">
-                                            <label class="mb-1"><strong>Email</strong></label>
-                                            <input type="email" class="form-control" value="hello@example.com">
+                                            <label class="mb-1"><strong>Username</strong></label>
+                                            <input type="ext" class="form-control" name="username">
                                         </div>
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Password</strong></label>
-                                            <input type="password" class="form-control" value="Password">
+                                            <input type="password" class="form-control" name="password">
                                         </div>
-                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                        <!-- <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">
                                                <div class="custom-control custom-checkbox ml-1">
 													<input type="checkbox" class="custom-control-input" id="basic_checkbox_1">
@@ -52,13 +93,13 @@
                                             <div class="form-group">
                                                 <a href="page-forgot-password.html">Forgot Password?</a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
+                                            <button type="submit" name="login" class="btn btn-primary btn-block">Sign Me In</button>
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Don't have an account? <a class="text-primary" href="page-register.html">Sign up</a></p>
+                                        <!-- <p>Don't have an account? <a class="text-primary" href="page-register.html">Sign up</a></p> -->
                                     </div>
                                 </div>
                             </div>
