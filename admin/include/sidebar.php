@@ -2,7 +2,7 @@
             <div class="deznav-scroll">
 				<div class="main-profile">
 					<div class="">
-						<img src="./images/logoKost.jpeg" width="200" alt="">
+						<img src="./images/logoKost.jpeg" width="150" alt="">
 						
 					</div>
 					<!-- <h5 class="name"><span class="font-w400">Hello,</span> Marquez</h5>
