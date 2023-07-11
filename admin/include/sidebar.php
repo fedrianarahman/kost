@@ -1,8 +1,8 @@
 <div class="deznav">
             <div class="deznav-scroll">
 				<div class="main-profile">
-					<div class="image-bx">
-						<img src="../assets/img/logoAdmin.jpg" width="100%" alt="">
+					<div class="">
+						<img src="./images/logoKost.jpeg" width="200" alt="">
 						
 					</div>
 					<!-- <h5 class="name"><span class="font-w400">Hello,</span> Marquez</h5>
