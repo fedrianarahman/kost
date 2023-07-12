@@ -112,8 +112,8 @@ if (!isset($_SESSION['nama'])) {
                         ?>
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Data Fasilitas Kost</h4>
-                                <a href="./addFasilitas.php" class="btn btn-sm btn-info">+ Add Data Fasilitas</a>
+                                <h4 class="card-title">Data Kamar Kost</h4>
+                                <a href="./addKost.php" class="btn btn-sm btn-info">+ Add Kamar Kost</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -121,28 +121,46 @@ if (!isset($_SESSION['nama'])) {
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Photo</th>
-                                                <th>Fasilitas</th>
+                                                <th>Nama Kamar</th>
+                                                <th>Harga</th>
+                                                <th>Jumlah Fasilitas</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             // get data
-                                            $getDataFasilitas = mysqli_query($conn, "SELECT * FROM fasilitas ");
+                                            $getDataFasilitas = mysqli_query($conn, "SELECT kost.id AS id_kost, kost.nama AS nama_kost, kost.harga AS harga, kost.status AS status, SUM(kost.jumlah_fasilitas) AS total_fasilitas
+                                            FROM kost
+                                            INNER JOIN fasilitas ON fasilitas.id = kost.fasilitas
+                                            GROUP BY kost.nama ORDER BY kost.id ASC
+                                            ");
                                             $i = 1;
                                             while ($dataFasilitas = mysqli_fetch_array($getDataFasilitas)) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $i?></td>
                                                 <td>
-                                                    <img src="./images/image-content/<?php echo $dataFasilitas['photo']?>" width="50" alt="">
+                                                <?php echo $dataFasilitas['nama_kost']?>
                                                 </td>
-                                                <td><?php echo strtoupper($dataFasilitas['nama_fasilitas'])?></td>
+                                                <td>Rp.<?php echo number_format($dataFasilitas['harga'], 0, ',', '.')?></td>
+                                                <td><?php echo $dataFasilitas['total_fasilitas']?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($dataFasilitas['status'] == 'Y') {
+                                                        echo '<span class="badge light badge-success">Kosong</span>';
+                                                    } else {
+                                                        echo '<a href="#" class="badge light badge-warning"><span>Terisi</span></a>';
+                                                    }
+                                                    
+                                                    ?>
+                                                </td>
                                                 <td>
 													<div class="d-flex">
-														<a href="./editFasilitas.php?id=<?php echo $dataFasilitas['id']?>" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-														<a href="./controller/fasilitas/delete.php?id=<?php echo $dataFasilitas['id']?>" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+														<a href="./detailKamarKost.php?id=<?php echo $dataFasilitas['id_kost']?>&nama_kost=<?php echo $dataFasilitas['nama_kost']?>" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fa fa-eye" data-toggle="tooltip" title="Detail"></i></a>
+                                                        <a href="./editKost.php?id=<?php echo $dataFasilitas['id_kost']?>&nama_kost=<?php echo $dataFasilitas['nama_kost']?>" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+														<a href="./controller/fasilitas/delete.php?id=<?php echo $dataFasilitas['id_kost']?>&nama_kost=<?php echo $dataFasilitas['nama_kost']?>" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 													</div>												
 												</td>												
                                             </tr>

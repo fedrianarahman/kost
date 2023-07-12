@@ -26,6 +26,11 @@
 							<span class="nav-text">Fasilitas Kost</span>
 						</a>
                     </li>
+					<li ><a class=" ai-icon" href="dataKost.php" aria-expanded="false">
+							<i class="fa fa-shopping-basket"></i>
+							<span class="nav-text">Kamar Kost</span>
+						</a>
+                    </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 						<i class="flaticon-077-menu-1"></i>
 							<span class="nav-text">Users</span>

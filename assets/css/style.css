@@ -72,6 +72,11 @@
 .btn-custom:hover {
     font-weight: bold;
     color: #3572EF;
+    background : #FFF;
+    border : 1px solid #ddd; 
+}
+.text-sign-up{
+    color: #3572EF;
 }
 
 .hero-icon {
@@ -281,6 +286,7 @@
 .testimonial {
     margin-bottom: 100px;
 }
+
 
 .img-testimonial-bg {
     width: 374.165px;
@@ -608,3 +614,26 @@ font-weight: 400;
     
 }
 /*  end detail room */
+.booking-page{
+    margin-bottom: 100px;
+}
+.booking-page .information{
+    text-align : center;
+    margin-bottom: 50px;
+}
+.information h1{
+    color: #152C5B;
+text-align: center;
+font-family: Poppins;
+font-size: 36px;
+font-style: normal;
+font-weight: 600;
+}
+.information p{
+    color: #B0B0B0;
+text-align: center;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+}

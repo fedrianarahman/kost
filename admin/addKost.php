@@ -6,6 +6,7 @@ if (!isset($_SESSION['nama'])) {
     header("Location: ./auth/login.php");
     exit();
 }
+// $harga_kamar = $_POST['harga_kamar'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,26 +89,56 @@ if (!isset($_SESSION['nama'])) {
                 <div class="col-12">
                 <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Input Data Fasilitas</h4>
+                                <h4 class="card-title">Input Data Kamar Kost</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form method="POST" action="./controller/fasilitas/add.php" enctype="multipart/form-data">
+                                    <form method="POST" action="./controller/kost/add.php" enctype="multipart/form-data">
                                        <div class="row">
                                         <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>Icon Fasilitas</label>
-                                            <input type="file" class="form-control input-default " name="photo" >
+                                            <label>Photo Kamar</label>
+                                            <input type="file" class="form-control input-default " name="photo[]" multiple >
                                         </div>
                                         </div>
                                         <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>Nama Fasilitas</label>
-                                            <input type="text" class="form-control input-default " placeholder="Nama Fasilitas" name="nama_fasilitas" >
+                                            <label>Nama Kamar</label>
+                                            <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="nama_kamar" >
                                         </div>
                                         </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Deskripsi Kamar</label>
+                                            <input type="text" class="form-control input-default " placeholder="Deskripsi Kamar" name="deskripsi_kamar" >
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Harga Kamar</label>
+                                            <input type="number" class="form-control input-default " name="harga_kamar" placeholder="0" name="harga_kamar" >
+                                        </div>
+                                        </div>
+                                        <?php
+                                        $getFasilitas = mysqli_query($conn, "SELECT * FROM fasilitas");
+                                        while ($dataFasilitas = mysqli_fetch_array($getFasilitas)) {
+                                        ?>
+                                         <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Fasilitas</label>
+                                            <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="fasilitas_id[]" value="<?php echo $dataFasilitas['id'];?>" hidden>
+                                            <input type="text" class="form-control input-default font-weight-bold" placeholder="Nama Kamar" name="fasilitas" value="<?php echo $dataFasilitas['nama_fasilitas'];?>" readonly>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label>Jumlah Fasilitas</label>
+                                            <input type="number" class="form-control input-default " placeholder="0" name="jumlah_fasilitas[]" >
+                                        </div>
+                                        </div>
+                                        <?php }?>
                                        </div>
-                                        <a class="btn btn-sm btn-warning text-white" href="./dataFasilitas.php">Kembali</a>
+                                        <a class="btn btn-sm btn-warning text-white" href="./dataKost.php">Kembali</a>
                                         <button class="btn btn-sm btn-primary float-right text-white" name="submit" type="submit">Save</button>
                                     </form>
                                 </div>
