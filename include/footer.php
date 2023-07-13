@@ -1,0 +1,35 @@
+<footer>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-3">
+                  <img src="./assets/img/logo.png" alt="">
+                  <p>We Provide For Your Beautiful Holiday
+                    Instantly and memorable</p>
+                </div>
+                <div class="col-md-3">
+                  <h2>For Beginer</h2>
+                  <ul>
+                    <li><a href="">New Account</a></li>
+                    <li><a href="">Start Booking Room</a></li>
+                    <li><a href="">Use Payment</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-3">
+                  <h2>For Beginer</h2>
+                  <ul>
+                    <li><a href="">New Account</a></li>
+                    <li><a href="">Start Booking Room</a></li>
+                    <li><a href="">Use Payment</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-3">
+                  <h2>For Beginer</h2>
+                  <ul>
+                    <li><a href="">New Account</a></li>
+                    <li><a href="">Start Booking Room</a></li>
+                    <li><a href="">Use Payment</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>

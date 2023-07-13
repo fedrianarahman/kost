@@ -152,7 +152,7 @@ $namaKost = $_GET['nama_kost'];
 
                                             ?>
                                                 <div class="new-arrival-content pr">
-                                                    <h3>Kamar <?php echo ucwords($dataKost['nama']) ?></h4>
+                                                    <h3> <?php echo ucwords($dataKost['nama']) ?></h4>
                                                         <div class="comment-review star-rating">
                                                             <span class="font-weight-bold">*Fasilitas</span>
                                                             <ul>

@@ -1,3 +1,14 @@
+<?php
+session_start();
+include './controller/conn.php';
+// Cek apakah sesi login telah diatur
+if (!isset($_SESSION['nama'])) {
+    header("Location: ./auth/login.php");
+    exit();
+}
+$nama_kost = $_GET['nama_kost'];
+$harga_kost = $_GET['harga_kost'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,31 +102,7 @@
 
 <body>
     <!-- navigasi -->
-    <nav class="navbar navbar-expand-lg justify-content-between shadow-sm bg-white fixed-top mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="#"><img src="./assets/img/logo.png" alt="" /></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Beranda </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="room.html">Room</a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include './include/navbar.php'?>
     <!-- end navigasi -->
     <br />
     <br />
@@ -133,47 +120,58 @@
             </div>
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <img src="./assets/img/most-picked-1.jpg" class="img-fluid image-detail-product" alt="">
+                    <?php
+                     $getDataGambar = mysqli_query($conn, "SELECT * FROM gambar_kost WHERE nama_kost = '$nama_kost' GROUP BY gambar_kost.nama_kost");
+                     while ($dataGambar = mysqli_fetch_array($getDataGambar)) {
+                    ?>
+                    <img src="./admin/images/imageKost/<?php echo $dataGambar['photo_kost']?>" class="img-fluid image-detail-product" alt="">
+                    <?php }?>
                 </div>
                 <div class="col-md-8 mb-3">
-                    <h1 class="name-fish-detail"> Kamar Ramayana</h1>
-                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga : Rp 1.500.0000</h2>
+                    <h1 class="name-fish-detail"> Room <?php echo $nama_kost?></h1>
+                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga : <?php echo number_format($harga_kost, 0, ',', '.') ?></h2>
                     <div class="group-product-detail">
-                        <h5 class="name-product-detail">Data detail pemesan wajib diisi :</h5>
-                        <form action="./controller/order/add.php" method="POST">
+                        <h5 class="name-product-detail">Data detail pemesan wajib diisi : <?php echo $_SESSION['user_id']?></h5>
+                        <form action="./controller/booking/add.php" method="POST">
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label for="" class="mb-2">*Nama</label>
-                                    <input type="text" class="form-control" id="nama" required name="nama" autofocus
+                                    <input type="text" class="form-control" id="nama" required name="user_id" hidden autofocus
+                                        placeholder="Nama" value="<?php echo $_SESSION['user_id']?>">
+                                    <input type="text" class="form-control" id="nama" required name="nama_kost" hidden autofocus
+                                        placeholder="Nama" value="<?php echo $nama_kost?>">
+                                    <input type="text" class="form-control" id="nama" required name="harga_kost" hidden autofocus
+                                        placeholder="Nama" value="<?php echo $harga_kost?>">
+                                    <input type="text" class="form-control" id="nama" required name="nama_penyewa" autofocus
                                         placeholder="Nama">
 
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="" class="mb-2">*Email</label>
-                                    <input type="email" class="form-control" id="email" required name="email"
+                                    <input type="email" class="form-control" id="email" required name="email_penyewa"
                                         placeholder="Email">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="" class="mb-2">No Telpon</label>
-                                    <input type="text" class="form-control" id="nophone" required name="phone"
+                                    <input type="text" class="form-control" id="nophone" required name="no_hp_penyewa"
                                         placeholder="Phone">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label for="" class="mb-2">Tanggal Sewa</label>
-                                    <input type="Date" class="form-control" id="nophone" required name="phone"
+                                    <label for="" class="mb-2">Tanggal Sewa Dari</label>
+                                    <input type="Date" class="form-control" id="nophone" required name="sewa_dari"
                                         placeholder="Phone">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="" class="mb-2">Tanggal Sewa</label>
-                                    <input type="Date" class="form-control" id="nophone" required name="phone"
+                                    <label for="" class="mb-2">Tanggal Sewa Hingga</label>
+                                    <input type="Date" class="form-control" id="nophone" required name="sewa_hingga"
                                         placeholder="Phone">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="btn btn-cs-order">Cancel</button>
-                                    <button class="btn btn-custom float-end">Continue</button>
+                                    <a class="btn btn-cs-order" href="./detailRoom.php?nama_kost=<?php echo $nama_kost?>&harga_kost=<?php echo $harga_kost?>">Cancel</a>
+                                    <button class="btn btn-custom float-end" type="submit">Continue</button>
                                 </div>
                             </div>
                         </form>

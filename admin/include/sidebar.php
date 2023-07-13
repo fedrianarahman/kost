@@ -17,7 +17,7 @@
                     </li>
 					<li class="nav-label">Apps</li>
 					<li ><a class=" ai-icon" href="dataAkunBank.php" aria-expanded="false">
-							<i class="flaticon-381-network"></i>
+							<i class="fa fa-university"></i>
 							<span class="nav-text">Akun Bank</span>
 						</a>
                     </li>
@@ -27,17 +27,24 @@
 						</a>
                     </li>
 					<li ><a class=" ai-icon" href="dataKost.php" aria-expanded="false">
-							<i class="fa fa-shopping-basket"></i>
+					<i class="fa fa-tasks"></i>
 							<span class="nav-text">Kamar Kost</span>
 						</a>
                     </li>
+					<li ><a class=" ai-icon" href="dataPemesanan.php" aria-expanded="false">
+							<i class="fa fa-address-book-o"></i>
+							<span class="nav-text">Data Pemesanan</span>
+						</a>
+                    </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-						<i class="flaticon-077-menu-1"></i>
+						<i class="fa fa-users"></i>
 							<span class="nav-text">Users</span>
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="dataUser.php">Data Users</a></li>
 							<li><a href="dataRole.php">Data Role</a></li>
+							<li><a href="dataPenyewa.php">Data Penyewa</a></li>
+							<li><a href="dataRole.php">Data Penghuni</a></li>
                         </ul>
                     </li>
                 </ul>

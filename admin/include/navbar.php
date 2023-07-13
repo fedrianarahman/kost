@@ -7,8 +7,8 @@
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <img src="images/profile/pic1.jpg" width="20" alt="">
                                     <div class="header-info">
-                                        <span>Johndoe</span>
-                                        <small>Super Admin</small>
+                                        <span><?php echo $_SESSION['nama']?></span>
+                                        <small><?php echo $_SESSION['level']?></small>
                                     </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">

@@ -1,3 +1,12 @@
+<?php
+session_start();
+include './controller/conn.php';
+// Cek apakah sesi login telah diatur
+if (!isset($_SESSION['nama'])) {
+    // header("Location: ./auth/login.php");
+    // exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,49 +27,27 @@
     />
     <!-- link css -->
     <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+        .btn-login-top{
+    border-radius: 4px;
+    background: #3572EF;
+    box-shadow: 0px 8px 15px 0px rgba(53, 114, 239, 0.30);
+    color: #FFF;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    /* margin-top: 5px; */
+    text-decoration: none;
+}
+    </style>
   </head>
   <body>
     <!-- navigasi -->
-    <nav
-      class="navbar navbar-expand-lg justify-content-between shadow-sm bg-white fixed-top mb-4"
-    >
-      <div class="container">
-        <a class="navbar-brand" href="#"
-          ><img src="./assets/img/logo.png"  alt=""
-        /></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="index.html">Beranda </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about.html">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="room.html">Room</a>
-            </li>
-        
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-sign-up " href="page-login.html">Sign In</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php 
+    include './include/navbar.php';
+     ?>
     <!-- end navigasi -->
     <br />
     <br />
@@ -103,7 +90,7 @@
             <!-- end hero -->
 
             <!-- most picked -->
-            <section class="most-picked">
+            <!-- <section class="most-picked">
               <h2>Most Picked</h2>
               <div class="row">
                 <div class="col-md-4">
@@ -145,51 +132,46 @@
                   </div>
                 </div>
               </div>
-            </section>
+            </section> -->
             <!-- end mos picked -->
 
             <!-- room with beautiful yeard -->
             <section class="room-with-beauty-backyeard">
-              <h2>Room With Beauty Backyeard</h2>
+              <h2>Kamar Kost</h2>
               <div class="row">
+                <?php
+                $getDataKost = mysqli_query($conn, "SELECT * FROM kost INNER JOIN fasilitas ON fasilitas.id = kost.fasilitas INNER JOIN gambar_kost ON gambar_kost.nama_kost  = kost.nama GROUP BY kost.nama");
+                while ($dataKost = mysqli_fetch_array($getDataKost)) {
+                 
+                ?>
                 <div class="col-md-3">
-                  <div class="room-with-beauty-backyeard-image">
-                    <img src="./assets/img/most-picked-2.jpg" alt="" srcset="">
-                    <span>Diskon</span>
-                    <p class="room-with-beauty-backyeard-title">Arjuna Room</p>
-                    <p class="room-with-beauty-backyeard-location">Bali, Indonesia</p>
-                  </div>
+                  <a href="./detailRoom.php?nama_kost=<?php echo $dataKost['nama']?>&harga_kost=<?php echo $dataKost['harga']?>" class="text-room">
+                    <div class="room-with-beauty-backyeard-image">
+                      <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost']?>" alt="" srcset="">
+                      <span class="diskon">New Arrival</span>
+                      <p class="room-with-beauty-backyeard-title"><?php echo $dataKost['nama']?></p>
+                      <p class="room-with-beauty-backyeard-location badge badge-success">
+                        <span class=" <?php if ($dataKost['status']=='Y') {
+                          echo 'badge light badge-custom-success';
+                        } else {
+                          echo 'badge light badge-custom-warning';
+                        }
+                         ?>"><?php if ($dataKost['status']=='Y') {
+                          echo 'kosong';
+                        } else {
+                          echo 'Penuh';
+                        }
+                         ?></span></p>
+                    </div>
+                  </a>
                 </div>
-                <div class="col-md-3">
-                  <div class="room-with-beauty-backyeard-image">
-                    <img src="./assets/img/most-picked-2.jpg" alt="" srcset="">
-                    <span>Diskon</span>
-                    <p class="room-with-beauty-backyeard-title">Arjuna Room</p>
-                    <p class="room-with-beauty-backyeard-location">Bali, Indonesia</p>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="room-with-beauty-backyeard-image">
-                    <img src="./assets/img/most-picked-2.jpg" alt="" srcset="">
-                    <span>Diskon</span>
-                    <p class="room-with-beauty-backyeard-title">Arjuna Room</p>
-                    <p class="room-with-beauty-backyeard-location">Bali, Indonesia</p>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="room-with-beauty-backyeard-image">
-                    <img src="./assets/img/most-picked-2.jpg" alt="" srcset="">
-                    <span>Diskon</span>
-                    <p class="room-with-beauty-backyeard-title">Arjuna Room</p>
-                    <p class="room-with-beauty-backyeard-location">Bali, Indonesia</p>
-                  </div>
-                </div>
+               <?php }?>
               </div>
             </section>
             <!-- end room with beautiful yeard -->
 
             <!-- kost with large living room -->
-            <section class="room-with-beauty-backyeard">
+            <!-- <section class="room-with-beauty-backyeard">
               <h2>Kost With Large Living Room</h2>
               <div class="row">
                 <div class="col-md-3">
@@ -222,11 +204,11 @@
                   </div>
                 </div>
               </div>
-            </section>
+            </section> -->
             <!-- end kost with large living room -->
 
             <!-- kost with kitchen set -->
-            <section class="room-with-beauty-backyeard">
+            <!-- <section class="room-with-beauty-backyeard">
               <h2>Kost With Kitchen Set</h2>
               <div class="row">
                 <div class="col-md-3">
@@ -259,7 +241,7 @@
                   </div>
                 </div>
               </div>
-            </section>
+            </section> -->
             <!-- kost with kitchen set -->
 
             <!-- testimonial -->
@@ -295,41 +277,9 @@
             <!-- testimonial -->
           </div>
           <!-- footer -->
-          <footer>
-            <div class="container">
-              <div class="row">
-                <div class="col-md-3">
-                  <img src="./assets/img/logo.png" alt="">
-                  <p>We Provide For Your Beautiful Holiday
-                    Instantly and memorable</p>
-                </div>
-                <div class="col-md-3">
-                  <h2>For Beginer</h2>
-                  <ul>
-                    <li><a href="">New Account</a></li>
-                    <li><a href="">Start Booking Room</a></li>
-                    <li><a href="">Use Payment</a></li>
-                  </ul>
-                </div>
-                <div class="col-md-3">
-                  <h2>For Beginer</h2>
-                  <ul>
-                    <li><a href="">New Account</a></li>
-                    <li><a href="">Start Booking Room</a></li>
-                    <li><a href="">Use Payment</a></li>
-                  </ul>
-                </div>
-                <div class="col-md-3">
-                  <h2>For Beginer</h2>
-                  <ul>
-                    <li><a href="">New Account</a></li>
-                    <li><a href="">Start Booking Room</a></li>
-                    <li><a href="">Use Payment</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </footer>
+         <?php
+         include './include/footer.php';
+         ?>
           <!-- end footer -->
 
     <!-- script bootstrap -->

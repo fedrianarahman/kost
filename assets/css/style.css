@@ -68,6 +68,19 @@
     font-weight: 300;
     margin-bottom: 40px;
 }
+.btn-login-top{
+    border-radius: 4px;
+    background: #3572EF;
+    box-shadow: 0px 8px 15px 0px rgba(53, 114, 239, 0.30);
+    color: #FFF;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    /* margin-top: 5px; */
+    text-decoration: none;
+}
 
 .btn-custom:hover {
     font-weight: bold;
@@ -247,8 +260,14 @@
     background: linear-gradient(180deg, rgba(12, 12, 12, 0.00) 0%, rgba(9, 8, 8, 0.69) 100%);
     margin-bottom: 16px;
 }
+.badge-custom-success{
+    background: #60f594;
+}
+.badge-custom-warning{
+    background: #ffd66e;
+}
 
-.room-with-beauty-backyeard-image span {
+.room-with-beauty-backyeard-image .diskon {
     width: 140px;
     /* height: 40px; */
     padding: 5px;
@@ -583,7 +602,7 @@ line-height: normal;
 }
 .start-booking-text{
     color: #E5E5E5;
-font-size: 36px;
+font-size: 20px;
 font-family: Poppins;
 font-style: normal;
 font-weight: 500;
@@ -637,3 +656,152 @@ font-size: 18px;
 font-style: normal;
 font-weight: 300;
 }
+.bank{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.bank-image{
+    padding-top: 100px;
+}
+/* profile */
+.profile{
+    margin-bottom: 100px;
+}
+.my-profile{
+    padding-left: 50px;
+    padding-right: 50px;
+    
+}
+.img-profile{
+    width: 100px;
+    height: 100px;
+    /* background: #000; */
+    border-radius: 50%;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.img-profile img{
+    width: 100%;
+    object-fit: fill;
+}
+.side-menu{
+    padding: 10px;
+    border: 1px solid #B0B0B0;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    
+}
+.side-menu ul{
+    list-style: none;
+    
+}
+.side-menu ul li{
+    margin-bottom: 10px;
+
+}
+.side-menu ul li:hover{
+    background: #3572EF;
+
+}
+.side-menu ul li .fa-regular{
+    margin-right: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.side-menu ul li a{
+    text-decoration: none;
+    color: #B0B0B0;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+}
+.text-room{
+    text-decoration : none;
+}
+.side-menu ul li .mm-active{
+    
+    background: #3572EF;
+}
+.side-menu ul li a:hover{
+    text-decoration: none;
+    color: #FFF;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+}
+.side-menu-item{
+    margin-left: 10px;
+}
+.btn-cs-order{
+    background: #FEB500;
+           
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 300;
+    margin-bottom: 40px;
+}
+.btn-cs-order:hover{
+    background: #da9c00;
+            color: white;
+}
+/* my kost */
+.img-my-kost {
+    height: 200px;
+    width: 150px;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+}
+.img-my-kost img{
+    width: 100%;
+    object-fit: fill;
+
+}
+.my-kost-content h2{
+
+}
+.my-kost-content p{
+    text-decoration: none;
+    color: #B0B0B0;
+font-family: Poppins;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+}
+.image-carousel-custom {
+    /* height: 500px; */
+    width: 100%;
+    /* background: #60f594; */
+    position: relative;
+    overflow: hidden;
+    /* border: 1px solid #3572EF; */
+    padding: 10px;
+  }
+  
+  .carousel-item {
+    position: relative;
+    height: 400px;
+    padding: 20px;
+    /* background: #000; */
+  }
+  
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .message-from-booking{
+    padding-left: 250px;
+    padding-right: 250px;
+    height: 50px;
+    /* background: #000; */
+    width: 100%;
+    
+  }

@@ -33,28 +33,34 @@ if ($r) {
     }
     
     if ($isDataInserted) {
-        
-         $fileCount = count($_FILES['photo']['name']);
-
-         for ($i = 0; $i < $fileCount; $i++) {
-             $filename = $_FILES['photo']['name'][$i];
-             $tmpname = $_FILES['photo']['tmp_name'][$i];
-
-             // Pindahkan gambar ke direktori yang diinginkan
-             $destination = "../../images/imageKost/" . $filename;
-             move_uploaded_file($tmpname, $destination);
-
-             // Insert nama file gambar ke dalam tabel kost
-                $queryImage =   mysqli_query($conn, "INSERT INTO `gambar_kost`(`id`, `photo_kost`, `nama_kost`, `created_at`, `updated_at`) VALUES ('','$filename','$nama_kost','$created_at','')");
-                
-             if (!$queryImage) {
-                 $_SESSION['status-fail'] = "Gagal memasukkan gambar";
-                 break; // Keluar dari loop jika ada kesalahan saat memasukkan gambar
-             }else{
+        $fileCount = count($_FILES['photo']['name']);
+    
+        for ($i = 0; $i < $fileCount; $i++) {
+            $filename = $_FILES['photo']['name'][$i];
+            $tmpname = $_FILES['photo']['tmp_name'][$i];
+    
+            // Membuat ID unik menggunakan fungsi time()
+            $uniqueId = time();
+    
+            // Menambahkan ID unik ke nama file
+            $filenameWithId = $uniqueId . '_' . $filename;
+    
+            // Pindahkan gambar ke direktori yang diinginkan
+            $destination = "../../images/imageKost/" . $filenameWithId;
+            move_uploaded_file($tmpname, $destination);
+    
+            // Insert nama file gambar ke dalam tabel kost
+            $queryImage = mysqli_query($conn, "INSERT INTO `gambar_kost`(`id`, `photo_kost`, `nama_kost`, `created_at`, `updated_at`) VALUES ('', '$filenameWithId', '$nama_kost', '$created_at', '')");
+    
+            if (!$queryImage) {
+                $_SESSION['status-fail'] = "Gagal memasukkan gambar";
+                break; // Keluar dari loop jika ada kesalahan saat memasukkan gambar
+            } else {
                 $_SESSION['status-info'] = "Data Berhasil Ditambahkan";
-             }
-         }
+            }
+        }
     }
+    
 }
 
 header("Location:../../dataKost.php");

@@ -6,7 +6,7 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $cekDataUser = mysqli_query($conn, "SELECT user.id AS id_user, user.nama AS nama_user, user.email AS email_user, user.no_telpon AS no_hp_user, user.photo AS photo_user, user.username AS username_user, user.password AS password_user,user.created_at AS created_at ,role.nama_role AS role_user FROM user INNER JOIN role ON role.id = user.role_id WHERE user.role_id != 3");
+    $cekDataUser = mysqli_query($conn, "SELECT user.id AS id_user, user.nama AS nama_user, user.email AS email_user, user.no_telpon AS no_hp_user, user.photo AS photo_user, user.username AS username_user, user.password AS password_user,user.created_at AS created_at ,user.alamat AS alamat,role.nama_role AS role_user FROM user INNER JOIN role ON role.id = user.role_id WHERE user.role_id  = 3");
 
     $loggedIn = false; // Flag untuk menandakan status login
 
@@ -14,7 +14,9 @@ if (isset($_POST['login'])) {
         if ($username == $result['username_user'] && $password == $result['password_user']) {
             $loggedIn = true;
             $_SESSION['nama'] = $result['nama_user'];
+            $_SESSION['user_id'] = $result['id_user'];
             $_SESSION['email'] = $result['email_user'];
+            $_SESSION['alamat'] = $result['alamat'];
             $_SESSION['no_hp'] = $result['no_hp_user'];
             $_SESSION['level'] = $result['role_user'];
             $_SESSION['username'] = $result['username_user'];
@@ -26,10 +28,10 @@ if (isset($_POST['login'])) {
     }
     
     if ($loggedIn) {
-        header("Location: ../index.php");
+        header("Location: ../profileUser.php");
         exit();
     } else {
-        $error = true;
+        $_SESSION['status-fail'] = "username/password Salah";
     }
 }
 ?>
@@ -51,9 +53,9 @@ if (isset($_POST['login'])) {
     <title>Zenix -  Crypto Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-	<link href="../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
-
+	<link href="../admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../admin/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body class="vh-100">
@@ -66,40 +68,35 @@ if (isset($_POST['login'])) {
                             <div class="col-xl-12">
                                 <div class="auth-form">
 									<div class="text-center mb-3">
-										<img src="" alt="">
+										<img src="../assets/img/logo.png" alt="">
 									</div>
                                     <h4 class="text-center mb-4">Sign in your account</h4>
                                     <?php
-                                    if (isset($error)) : ?>
-                                        <p style="color:red; font-style: italic; text-align: center;">username / password salah </p>
-
-                                    <?php endif; ?>
+                                      if (isset($_SESSION['status-fail'])) {
+                                        echo '<div class="alert alert-danger alert-dismissible fade show">
+                                        <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                        <strong>Error!</strong> '.$_SESSION['status-fail'].'.
+                                        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                                        </button>
+                                    </div>';
+                                        unset($_SESSION['status-fail']);
+                                    }
+                                    ?>
                                     <form method="POST">
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Username</strong></label>
-                                            <input type="ext" class="form-control" name="username">
+                                            <input type="text" class="form-control" name="username">
                                         </div>
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Password</strong></label>
                                             <input type="password" class="form-control" name="password">
                                         </div>
-                                        <!-- <div class="form-row d-flex justify-content-between mt-4 mb-2">
-                                            <div class="form-group">
-                                               <div class="custom-control custom-checkbox ml-1">
-													<input type="checkbox" class="custom-control-input" id="basic_checkbox_1">
-													<label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>
-												</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <a href="page-forgot-password.html">Forgot Password?</a>
-                                            </div>
-                                        </div> -->
                                         <div class="text-center">
-                                            <button type="submit" name="login" class="btn btn-primary btn-block">Sign Me In</button>
+                                            <button type="submit" class="btn  btn-custom" name="login" style="width: 100%;">Log In</button>
                                         </div>
                                     </form>
-                                    <div class="new-account mt-3">
-                                        <!-- <p>Don't have an account? <a class="text-primary" href="page-register.html">Sign up</a></p> -->
+                                    <div class="new-account">
+                                        <p>Don't have an account? <a class="text-sign-up" href="./regist.php">Sign up</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -115,11 +112,11 @@ if (isset($_POST['login'])) {
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="../vendor/global/global.min.js"></script>
-	<script src="../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="../js/custom.min.js"></script>
-	<script src="../js/deznav-init.js"></script>
-    <script src="../js/demo.js"></script>
-    <script src="../js/styleSwitcher.js"></script>
+    <script src="../../admin/vendor/global/global.min.js"></script>
+	<script src="../../admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../../admin/js/custom.min.js"></script>
+	<script src="../../admin/js/deznav-init.js"></script>
+    <script src="../../admin/js/demo.js"></script>
+    <script src="../../admin/js/styleSwitcher.js"></script>
 </body>
 </html>

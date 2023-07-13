@@ -85,7 +85,7 @@ if (!isset($_SESSION['nama'])) {
         <div class="content-body">
 			<div class="container-fluid">
 				<?php include './include/welcomeBack.php'?>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-xl-3 col-sm-6 m-t35">
 						<div class="card card-coin">
 							<div class="card-body text-center">
@@ -213,7 +213,7 @@ if (!isset($_SESSION['nama'])) {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				
 			</div>
 		</div>
