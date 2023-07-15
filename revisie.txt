@@ -1,0 +1,10 @@
+
+#yang sudah
+1. Profile Sudah Bisa Diupdate baik yang duser/maupun di admin
+2. menambahkan fitur chat whatsapp
+3. halaman history sudah terisi
+4. halaman my kost sudah terisi
+
+#yang belum 
+1. halaman contact pada bagian user
+2. edit data kost

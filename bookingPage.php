@@ -97,6 +97,15 @@ $harga_kost = $_GET['harga_kost'];
             padding: 10px;
             border-radius: 10px;
         }
+        .message-from-booking {
+            margin-top: 30px;
+            padding-left: 250px;
+            padding-right: 250px;
+            height: 50px;
+            /* background: #000; */
+            width: 100%;
+
+        }   
     </style>
 </head>
 
@@ -109,7 +118,28 @@ $harga_kost = $_GET['harga_kost'];
     <br />
     <br />
     <br />
-
+    <div class="message-from-booking mb-4">
+    <?php
+    if (isset($_SESSION['status-info'])) {
+      echo '<div class="message-from-booking">
+                        <div class="alert alert-success light alert-dismissible fade show" role="alert">
+                        <strong>Success!</strong>' . $_SESSION['status-info'] . '.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                        </div>';
+      unset($_SESSION['status-info']);
+    }
+    if (isset($_SESSION['status-fail'])) {
+      echo '<div class="message-from-booking">
+                        <div class="alert alert-danger light alert-dismissible fade show" role="alert">
+                        <strong>Gagal</strong>' . $_SESSION['status-fail'] . '.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                        </div>';
+      unset($_SESSION['status-fail']);
+    }
+    ?>
+  </div>
     <!-- booking -->
     <section class="booking-page">
         <div class="container">
