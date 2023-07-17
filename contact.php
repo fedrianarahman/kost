@@ -34,6 +34,9 @@ if (!isset($_SESSION['nama'])) {
       /* margin-top: 5px; */
       text-decoration: none;
     }
+    .kontak-kami{
+        font-size: 18px;
+    }
   </style>
 </head>
 
@@ -50,21 +53,29 @@ if (!isset($_SESSION['nama'])) {
   <br />
   <div class="container">
     <!-- about -->
-    <section class="about">
+    <section class="hero">
       <div class="row">
-        <div class="col-md-6">
-          <div class="about-image-img">
-            <img src="./assets/img/most-picked-2.jpg" alt="">
-          </div>
-          <div class="about-bg-image"></div>
-        </div>
+       
         <div class="col-md-6">
           <div class="about-content">
-            <h1>About</h1>
-            <p>Kost Bu Ida adalah tempat yang bergerak di bidang penyewaan kamar yang di dirikan pada tahun 1990 yang dipelopori oleh Ibu Ida Syarif yang berlokasi di Jln. Sekeloa Tengah No. 101 Kelurahan Lebakgede Kecamatan Coblong Kota Bandung.
-              Kost Bu Ida yang awalnya hanya rumah pribadi saja, unutk memanfaatkan kamar kosong yang di tempati keluarga besar, sekarang berubah menjadi kos-kosan dengan jumlah kamar yang ada sudah mencapai 9 kamar yang selalu terisi penuh, dikarenakan kost Bu Ida ini memiliki keunggulan dibanding tempat kost lain yang ada di bandung, seperti memiliki lahan parkit motor dan tidak jauh dari pusat perbelanjaan.</p>
+            <h1>Contact</h1>
+            <div class="contact-item">
+            <h2 class="kontak-kami">Kontak Kami : </h2>
+            <p style="font-size: 15px; margin-bottom :5px;"> Admin 1 : 08122122998</p>
+            <p style="font-size: 15px; margin-bottom :5px;"> Admin 2 : 085105495678</p>
+            <h2 class="kontak-kami">Lokasi : </h2>
+            <p style="font-size: 15px; margin-bottom :5px;">Jln. Sekeloa Tengah No. 101 Kelurahan Lebakgede Kecamatan Coblong Kota Bandung.</p>
+        </div>
 
           </div>
+        </div>
+        <div class="col-md-6">
+        <div class="img ">
+                            <div class="image-wrapper">
+                                <img src="./assets/img//hero.jpg" alt="">
+                            </div>
+                            <div class="bg-hero-image"></div>
+                        </div>
         </div>
       </div>
     </section>

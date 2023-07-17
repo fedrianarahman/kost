@@ -41,8 +41,13 @@
 							<span class="nav-text">Users</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="dataUser.php">Data Users</a></li>
+							<?php
+							if ($_SESSION['level'] =='admin') {
+							?>
+							<li><a href="dataUser.php">Data Users</a></li>
 							<li><a href="dataRole.php">Data Role</a></li>
+							<?php }?>
+                            
 							<li><a href="dataPenyewa.php">Data Penyewa</a></li>
 							<li><a href="dataRole.php">Data Penghuni</a></li>
                         </ul>

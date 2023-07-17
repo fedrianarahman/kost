@@ -111,7 +111,7 @@ $idUSer = $_SESSION['user_id'];
             <div class="side-menu">
               <ul>
                 <li><a href="./profileUser.php"><i class="fa-regular fa-user mr-4"></i><span class="side-menu-item">My Profile</span></a></li>
-                <li><a href=""><i class="fa-regular fa-user mr-4"></i><span class="side-menu-item">History</span></a></li>
+                <li><a href="./myHistory.php"><i class="fa-regular fa-user mr-4"></i><span class="side-menu-item">History</span></a></li>
                 <li><a href="./myKost.php"><i class="fa-regular fa-user mr-4"></i><span class="side-menu-item">My Kost</span></a></li>
               </ul>
             </div>

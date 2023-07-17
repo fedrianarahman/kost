@@ -67,7 +67,7 @@ if (isset($_POST['login'])) {
                             <div class="col-xl-12">
                                 <div class="auth-form">
 									<div class="text-center mb-3">
-										<img src="" alt="">
+										<img src="../../assets/img/logo.png" alt="">
 									</div>
                                     <h4 class="text-center mb-4">Sign in your account</h4>
                                     <?php

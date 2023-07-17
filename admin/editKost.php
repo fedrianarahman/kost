@@ -91,13 +91,13 @@ $namaKost = $_GET['nama_kost'];
                 <div class="col-12">
                 <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Input Data Kamar Kost</h4>
+                                <h4 class="card-title">Edit Data Kamar Kost</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form method="POST" action="./controller/kost/add.php" enctype="multipart/form-data">
+                                    <form method="POST" action="./controller/kost/update.php" enctype="multipart/form-data">
                                         <?php
-                                        $updateData = mysqli_query($conn,"SELECT * FROM kost INNER JOIN fasilitas ON fasilitas.id  = kost.fasilitas INNER JOIN gambar_kost ON gambar_kost.nama_kost = kost.nama  WHERE kost.nama = '$namaKost' GROUP BY kost.nama");
+                                        $updateData = mysqli_query($conn,"SELECT * FROM kost INNER JOIN fasilitas ON fasilitas.id  = kost.fasilitas   WHERE kost.nama = '$namaKost' GROUP BY kost.nama");
                                         while ($dataKost = mysqli_fetch_array($updateData)) {
                                             
                                         ?>
@@ -112,6 +112,8 @@ $namaKost = $_GET['nama_kost'];
                                         <div class="form-group mb-3">
                                             <label>Nama Kamar</label>
                                             <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="nama_kamar" value="<?php echo $dataKost['nama']?>">
+                                            <input hidden type="text" class="form-control input-default " placeholder="Nama Kamar" name="nama_kamar_update" value="<?php echo $dataKost['nama']?>">
+                                            
                                         </div>
                                         </div>
                                         <div class="col-md-6">
@@ -144,8 +146,26 @@ $namaKost = $_GET['nama_kost'];
                                         </div>
                                         </div>
                                         <?php }?>
+                                        <div class="col-md-6">
+                                         <div class="form-group mb-3">
+                                             <label class="font-weight-bold">status Kamar</label>
+                                            <div class="row">
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" name="status" value="Y" <?php if ($dataKost['status']== 'Y') {
+                                                    echo 'checked';
+                                                }?>>
+                                            Kosong</label>
+                                             <label class="radio-inline mr-3">
+                                            <input type="radio" name="status" value="P"  <?php if ($dataKost['status']== 'P') {
+                                                    echo 'checked';
+                                                }?>>
+                                             Penuh</label>
+                                            </div>
+                                         </div>
+                                         </div>
                                        </div>
                                        <?php }?>
+                                       
                                         <a class="btn btn-sm btn-warning text-white" href="./dataKost.php">Kembali</a>
                                         <button class="btn btn-sm btn-primary float-right text-white" name="submit" type="submit">Save</button>
                                     </form>
