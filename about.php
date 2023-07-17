@@ -34,6 +34,20 @@ if (!isset($_SESSION['nama'])) {
       /* margin-top: 5px; */
       text-decoration: none;
     }
+    .about-image-img {
+    position: relative;
+    width: 503px;
+    height: 396px;
+    z-index: 1;
+    margin-left: 30px;
+}
+
+.about-image-img img {
+    width: 100%;
+    object-fit: fill;
+    border-radius: 15px 100px 15px 15px;
+    height: 450px;
+}
   </style>
 </head>
 
@@ -54,7 +68,7 @@ if (!isset($_SESSION['nama'])) {
       <div class="row">
         <div class="col-md-6">
           <div class="about-image-img">
-            <img src="./assets/img/most-picked-2.jpg" alt="">
+            <img src="./assets/img/buida.jpeg" alt="" >
           </div>
           <div class="about-bg-image"></div>
         </div>
