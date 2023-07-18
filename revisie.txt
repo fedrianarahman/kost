@@ -6,5 +6,6 @@
 4. halaman my kost sudah terisi
 
 #yang belum 
-1. halaman contact pada bagian user
-2. edit data kost
+1. 50%
+2. pemesanan di tanggal
+3. Pemesanan tanggal disable

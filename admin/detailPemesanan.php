@@ -104,7 +104,7 @@ $nama_kamar = $_GET['nama_kost'];
                     <div class="card">
                         <div class="card-body">
                            <?php
-                           $getdataPemesanan = mysqli_query($conn, "SELECT tb_pemesanan.id AS id_pemesanan,tb_pemesanan.nama_pemesan AS nama_pemesan,tb_pemesanan.email_pemesan AS email_pemesan,tb_pemesanan.no_hp_pemesan AS no_hp_pemesan,tb_pemesanan.tgk_dari AS tgk_dari,tb_pemesanan.tgl_hingga AS tgl_hingga,tb_pemesanan.nama_kost AS nama_kost,tb_pemesanan.jumlah AS jumlah,tb_pemesanan.sisa_bayar AS sisa_bayar,tb_pemesanan.bukti_tf AS bukti_tf,tb_pemesanan.created_at AS created_at,tb_pemesanan.status_pemesanan AS status_pemesanan FROM tb_pemesanan INNER JOIN bank ON bank.id = tb_pemesanan.via_bank WHERE tb_pemesanan.id = '$idPesanan' ");
+                           $getdataPemesanan = mysqli_query($conn, "SELECT tb_pemesanan.id AS id_pemesanan,tb_pemesanan.nama_pemesan AS nama_pemesan,tb_pemesanan.email_pemesan AS email_pemesan,tb_pemesanan.total_bulan_sewa AS total_bulan_sewa,tb_pemesanan.harga_kost AS harga_kost,tb_pemesanan.no_hp_pemesan AS no_hp_pemesan,tb_pemesanan.tgk_dari AS tgk_dari,tb_pemesanan.tgl_hingga AS tgl_hingga,tb_pemesanan.nama_kost AS nama_kost,tb_pemesanan.jumlah AS jumlah,tb_pemesanan.sisa_bayar AS sisa_bayar,tb_pemesanan.bukti_tf AS bukti_tf,tb_pemesanan.asal_bank AS asal_bank,tb_pemesanan.nama_pengirim AS nama_pengirim,tb_pemesanan.created_at AS created_at,tb_pemesanan.status_pemesanan AS status_pemesanan,bank.nama_bank AS nama_bank,bank.nama_pemilik AS nama_pemilik FROM tb_pemesanan INNER JOIN bank ON bank.id = tb_pemesanan.via_bank WHERE tb_pemesanan.id = '$idPesanan' ");
                            while ($dataPemesanan = mysqli_fetch_array($getdataPemesanan)) {
                            ?>
                             <div class="row">
@@ -127,16 +127,36 @@ $nama_kamar = $_GET['nama_kost'];
                                     <p>Nama Kamar : <?php echo $dataPemesanan['nama_kost']?></p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p>Jumlah Transfer : <?php echo number_format($dataPemesanan['jumlah'], 0, ',', '.')?></p>
+                                    <p>Harga Kamar : Rp. <?php echo number_format($dataPemesanan['harga_kost'], 0, ',', '.')?> / bulan</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p>Sisa Bayar : <?php echo  number_format($dataPemesanan['sisa_bayar'], 0, ',', '.')?></p>
+                                    <p>Lama Sewa : <?php echo $dataPemesanan['total_bulan_sewa']?> bulan</p>
+                                </div>
+            
+                                <div class="col-md-4">
+                                    <p class="font-weight-bold">Total Bayar : Rp. <?php $totalBayar = $dataPemesanan['harga_kost'] * $dataPemesanan['total_bulan_sewa'];
+                                    echo number_format($totalBayar, 0, ',', '.') ?></p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p class="mb-2">Bukti Transfer :</p>
+                                    <p class="font-weight-bold">Jumlah Transfer : Rp. <?php echo number_format($dataPemesanan['jumlah'], 0, ',', '.')?></p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="font-weight-bold">Sisa Bayar : Rp. <?php echo  number_format($dataPemesanan['sisa_bayar'], 0, ',', '.')?></p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="mb-2 font-weight-bold">Bukti Transfer :</p>
                                     <div class="img-bukti-tf mb-2">
                                     <img src="./images/image-content/<?php echo $dataPemesanan['bukti_tf']?>" alt="">
                                     </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <p >Akun Bank Yang Dituju : <span class="font-weight-bold"><?php echo  $dataPemesanan['nama_bank']?>/<?php echo  $dataPemesanan['nama_pemilik']?></span> </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p >Asal Bank : <span class="font-weight-bold"><?php echo  $dataPemesanan['asal_bank']?></span> </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p >Nama Pengirim : <span class="font-weight-bold"><?php echo  $dataPemesanan['nama_pengirim']?></span> </p>
                                 </div>
                                 <div class="col-md-4">
                                     <p>Tanggal Pemesanan : <?php echo $dataPemesanan['created_at']?></p>

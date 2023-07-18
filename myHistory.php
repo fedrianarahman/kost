@@ -147,16 +147,20 @@ $idUSer = $_SESSION['user_id'];
                                                     <span class="<?php
                                                     if ($dataRiwayat['status_pemesanan']=='P') {
                                                         echo 'btn btn-sm btn-warning text-white';
-                                                    } else {
+                                                    } elseif ($dataRiwayat['status_pemesanan']=='P') {
                                                         echo 'btn btn-sm btn-success text-white';
+                                                    } else{
+                                                        echo 'btn btn-sm btn-danger text-white';
                                                     }
                                                      
                                                      ?>">
                                                     <?php
                                                     if ($dataRiwayat['status_pemesanan']=='P') {
                                                         echo 'Menunggu Konfirmasi';
-                                                    } else {
+                                                    } elseif ($dataRiwayat['status_pemesanan']=='P') {
                                                         echo 'Terkonfirmasi';
+                                                    } else{
+                                                        echo 'Transaksi Dibatalkan';
                                                     }
                                                      
                                                      ?>

@@ -169,6 +169,7 @@ if (!isset($_SESSION['nama'])) {
                       <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost']?>" alt="" srcset="">
                       <span class="diskon">New Arrival</span>
                       <p class="room-with-beauty-backyeard-title"><?php echo $dataKost['nama']?></p>
+                      <p class="room-with-beauty-backyeard-title" style="font-size: 13px;">read more...</p>
                       <p class="room-with-beauty-backyeard-location badge badge-success">
                         <span class=" <?php if ($dataKost['status']=='Y') {
                           echo 'badge light badge-custom-success';

@@ -46,7 +46,7 @@ if (!isset($_SESSION['nama'])) {
     width: 100%;
     object-fit: fill;
     border-radius: 15px 100px 15px 15px;
-    height: 450px;
+    height: 406px;
 }
   </style>
 </head>

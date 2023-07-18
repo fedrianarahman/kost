@@ -153,6 +153,15 @@ if (!isset($_SESSION['nama'])) {
                         </div>';
                     unset($_SESSION['status-info']);
                 }
+                if (isset($_SESSION['status-fail'])) {
+                    echo '<div class="message-from-booking">
+                        <div class="alert alert-danger light alert-dismissible fade show" role="alert">
+                        <strong>Success!</strong>' . $_SESSION['status-fail'] . '.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                        </div>';
+                    unset($_SESSION['status-fail']);
+                }
                 ?>
             </div>
             <div class="row">
@@ -182,21 +191,29 @@ if (!isset($_SESSION['nama'])) {
                 </div>
                 <div class="col-md-6">
                     <h1 class="name-fish-detail"> </h1>
-                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Total jumlah :</span> <?php echo number_format($_SESSION['harga'], 0, ',', '.')  ?> </h2>
-                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Total Bayar: </span>
+                    <?php
+                    $idbulan = $_SESSION['id_pemesanan'];
+                    $getBulan = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE id='$idbulan'");
+                    $rBulan = mysqli_fetch_array($getBulan);
+
+                    ?>
+                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga Kamar :Rp.</span> <?php echo number_format($_SESSION['harga'], 0, ',', '.')  ?>/<?php echo $rBulan['total_bulan_sewa']?> Bulan</h2>
+                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Total Bayar: Rp.</span>
                         <?php
-                         echo number_format($_SESSION['harga'], 0, ',', '.');
+                         $currentHarga =  $_SESSION['harga'] * $rBulan['total_bulan_sewa'];
+                         echo number_format($currentHarga, 0, ',', '.');
                         // Menghitung harga setelah diskon
                         // $diskon = 10; // Persentase diskon (10%)
                         // $hargaSetelahDiskon = $harga - ($harga * $diskon / 100);
                         
                         // echo number_format($hargaSetelahDiskon, 0, ',', '.');
-                        
+                        $diskon = 50 / 100; // Persentase diskon (50%)
+                        $minBayar = $currentHarga * (1 - $diskon);
                         ?></h2>
                     <div class="group-product-detail">
                         <h5 class="name-product-detail">silahkan lakukan pembayaran dan upload bukti pembayaran :</h5>
                         <h5 class=" note">*Note:</h5>
-                        <h5 class="name-product-detail note-text note">Minimal Proses Pembayaran 50% dari Total Bayar.</h5>
+                        <h5 class="name-product-detail note-text note">Minimal Proses Pembayaran 50% dari Total Bayar: Rp. <?php echo number_format($minBayar, 0, ',', '.');?></h5>
                         <form action="./controller/booking/update.php" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="form-group bank mb-2">

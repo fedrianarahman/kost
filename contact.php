@@ -52,6 +52,11 @@ if (!isset($_SESSION['nama'])) {
   <br />
   <br />
   <div class="container">
+    <!-- whatsapp icon -->
+   <a class="whats-app" href="#" target="_blank">
+    <i class="fa-brands  fa-whatsapp my-float"></i>
+  </a>
+  <!-- whatsapp icon -->
     <!-- about -->
     <section class="hero">
       <div class="row">

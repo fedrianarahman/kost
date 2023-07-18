@@ -12,24 +12,30 @@ $sewaDari = $_POST['sewa_dari'];
 $sewaHingga = $_POST['sewa_hingga'];
 $created_at = "";
 $statusPemesanan = "Y";
-$tglSekarang = date('Y-m-d');
+$totalBulan = 1;
+$selisih_detik = strtotime($sewaDari) - strtotime($sewaHingga);
 
-$cek = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE tgk_dari = '$sewaDari' AND tgl_hingga = '$sewaHingga' AND nama_kost = '$namaKamar'");
+$jumlahTotalHari = $selisih_detik / (60 * 60 * 24); // Menghitung jumlah total hari
+$validDay = abs($jumlahTotalHari);
+if ($validDay > 31) {
+    $totalBulan++; // Menghitung jumlah bulan dengan pembulatan ke atas
+}
+
+// Mengubah format tanggal menjadi format yang cocok untuk query SQL
+$sewaDariSQL = date('Y-m-d', strtotime($sewaDari));
+$sewaHinggaSQL = date('Y-m-d', strtotime($sewaHingga));
+
+// Query untuk mengecek rentang tanggal yang beririsan
+$cek = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE ('$sewaDariSQL' BETWEEN tgk_dari AND tgl_hingga OR '$sewaHinggaSQL' BETWEEN tgk_dari AND tgl_hingga) AND nama_kost = '$namaKamar'");
 $result = mysqli_fetch_array($cek);
 
+// Jika tanggal yang dipilih beririsan dengan tanggal yang sudah ada 
 if ($result != null) {
     $_SESSION['status-fail'] = "Kamar Sudah Terpesan";
     header("Location:../../bookingPage.php?nama_kost=$namaKamar&harga_kost=$hargaKamar");
-} elseif (isset($sewaDari) && $sewaDari <= $tglSekarang && isset($sewaHingga) && $sewaHingga <= $tglSekarang ) {
-    $_SESSION['status-fail'] = "Tanggal Sudah Lewat";
-    header("Location:../../bookingPage.php?nama_kost=$namaKamar&harga_kost=$hargaKamar");
-}elseif (isset($sewaDari) && $sewaDari >= $sewaHingga && isset($sewaHingga) && $sewaHingga <= $sewaDari ) {
-    $_SESSION['status-fail'] = "Pilih Tanggal Yang Benar";
-    header("Location:../../bookingPage.php?nama_kost=$namaKamar&harga_kost=$hargaKamar");
-}
- else {
+} else {
     // Menambahkan data ke tb_pemesanan
-    $query = mysqli_query($conn, "INSERT INTO `tb_pemesanan`(`id`, `userId`, `nama_pemesan`, `email_pemesan`, `no_hp_pemesan`, `tgk_dari`, `tgl_hingga`, `nama_kost`, `harga_kost`, `via_bank`, `nama_pengirim`, `bukti_tf`, `jumlah`, `asal_bank`, `sisa_bayar`, `status_pemesanan`, `created_at`, `updated_at`) VALUES ('','$userId','$namaPenyewa','$emailPenyewa','$noHpPenyewa','$sewaDari','$sewaHingga','$namaKamar','$hargaKamar','','','','','','','','$created_at','')");
+    $query = mysqli_query($conn, "INSERT INTO `tb_pemesanan`(`id`, `userId`, `nama_pemesan`, `email_pemesan`, `no_hp_pemesan`, `tgk_dari`, `tgl_hingga`, `total_bulan_sewa`,`nama_kost`, `harga_kost`, `via_bank`, `nama_pengirim`, `bukti_tf`, `jumlah`, `asal_bank`, `sisa_bayar`, `status_pemesanan`, `created_at`, `updated_at`) VALUES ('','$userId','$namaPenyewa','$emailPenyewa','$noHpPenyewa','$sewaDari','$sewaHingga','$totalBulan','$namaKamar','$hargaKamar','','','','','','','','$created_at','')");
 
     $idPemesanan = mysqli_insert_id($conn);
     if ($query) {

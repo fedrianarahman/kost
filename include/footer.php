@@ -7,7 +7,15 @@
                     Instantly and memorable</p>
                 </div>
                 <div class="col-md-3">
-                  <h2>For Beginer</h2>
+                  <h2>Link</h2>
+                  <ul>
+                    <li><a href="">Beranda</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Room</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-3">
+                  <h2>Partner</h2>
                   <ul>
                     <li><a href="">New Account</a></li>
                     <li><a href="">Start Booking Room</a></li>
@@ -15,15 +23,7 @@
                   </ul>
                 </div>
                 <div class="col-md-3">
-                  <h2>For Beginer</h2>
-                  <ul>
-                    <li><a href="">New Account</a></li>
-                    <li><a href="">Start Booking Room</a></li>
-                    <li><a href="">Use Payment</a></li>
-                  </ul>
-                </div>
-                <div class="col-md-3">
-                  <h2>For Beginer</h2>
+                  <h2>Media Sosial</h2>
                   <ul>
                     <li><a href="">New Account</a></li>
                     <li><a href="">Start Booking Room</a></li>
