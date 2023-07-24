@@ -192,15 +192,15 @@ if (!isset($_SESSION['nama'])) {
                 <div class="col-md-6">
                     <h1 class="name-fish-detail"> </h1>
                     <?php
-                    $idbulan = $_SESSION['id_pemesanan'];
+                    $idbulan = $_GET['id_pemesanan'];
                     $getBulan = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE id='$idbulan'");
                     $rBulan = mysqli_fetch_array($getBulan);
 
                     ?>
-                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga Kamar :Rp.</span> <?php echo number_format($_SESSION['harga'], 0, ',', '.')  ?>/<?php echo $rBulan['total_bulan_sewa']?> Bulan</h2>
+                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga Kamar :Rp.</span> <?php echo number_format($rBulan['harga_kost'], 0, ',', '.')  ?>/<?php echo $rBulan['total_bulan_sewa']?> Bulan</h2>
                     <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Total Bayar: Rp.</span>
                         <?php
-                         $currentHarga =  $_SESSION['harga'] * $rBulan['total_bulan_sewa'];
+                         $currentHarga =  $rBulan['harga_kost'] * $rBulan['total_bulan_sewa'];
                          echo number_format($currentHarga, 0, ',', '.');
                         // Menghitung harga setelah diskon
                         // $diskon = 10; // Persentase diskon (10%)
@@ -237,12 +237,12 @@ if (!isset($_SESSION['nama'])) {
                                 <div class="form-group bank mb-2">
                                     <label for="" class="mb-2">Asal Bank</label>
                                     <input type="text" name="asal_bank" class="form-control" id="">
-                                    <input hidden type="text" name="id_pemesanan" class="form-control" id="" value="<?php echo $_SESSION['id_pemesanan'] ?>">
+                                    <input hidden type="text" name="id_pemesanan" class="form-control" id="" value="<?php echo $rBulan['id'] ?>">
                                 </div>
                                 <div class="form-group bank mb-2">
                                     <label for="currency-field" class="mb-2">Jumlah</label>
                                     <input type="number" name="jumlah_tf" class="form-control CurrencyInput">
-                                    <input type="text" hidden name="jumlah_bayar" class="form-control CurrencyInput" value="<?php echo $_SESSION['harga']?>">
+                                    <input type="text" hidden  name="jumlah_bayar" class="form-control CurrencyInput" value="<?php echo $rBulan['harga_kost']?>">
 
                                 </div>
                                 <div class="form-group bank mb-2">

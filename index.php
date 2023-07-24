@@ -80,7 +80,7 @@ if (!isset($_SESSION['nama'])) {
                     <div class="col-md-6">
                         <h1> Nikmati Tinggal di Kost dengan Fasilitas Terbaik</h1>
                         <p>Kosan bu ida adalah kosan yang berada di kota bandung tepatnya di jalan sekeloa tengah. Kosan yang tidak jadu dari monument perjuangan rakyat  sekitar 530 meter dari kosan, sekitar 1,5 km ke gedung sate, berjarak 90 meter dari indomart sekeloa dan  banyak jajanan bandung di sekitaran kosan.</p>
-                        <button class="btn  btn-custom">Show Me Now</button>
+                        <a href="./room.php" class="btn  btn-custom">Show Me Now</a>
                         <div class="hero-icon">
                             <div class="hero-icon-item">
                                 <img src="./assets/img/icon/ic-traveller.svg" alt="">

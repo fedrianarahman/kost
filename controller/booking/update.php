@@ -18,7 +18,7 @@ $sisaBayar = $totalBayar - $jumlah;
 $diskon = 50/100;
 $resultHarga = $totalBayar  * (1 - $diskon);
 
-if ($jumlah != $resultHarga) {
+if ($jumlah <= $resultHarga) {
     echo '<script>
     alert("Nominal Tidak Sesuai");
     window.location.href = "../../paymentPage.php";

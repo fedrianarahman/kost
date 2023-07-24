@@ -22,24 +22,24 @@ $idUSer = $_SESSION['user_id'];
     <!-- link css -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <style>
-         .whats-app {
-    position: fixed;
-    width: 50px;
-    height: 50px;
-    bottom: 40px;
-    background-color: #25d366;
-    color: #FFF;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 3px 4px 3px #999;
-    right: 15px;
-    z-index: 100;
-  }
+        .whats-app {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            bottom: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 3px 4px 3px #999;
+            right: 15px;
+            z-index: 100;
+        }
 
-  .my-float {
-    margin-top: 10px;
-  }
+        .my-float {
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -75,10 +75,10 @@ $idUSer = $_SESSION['user_id'];
         ?>
     </div>
     <!-- whatsapp icon -->
-  <a class="whats-app" href="#" target="_blank">
-    <i class="fa-brands  fa-whatsapp my-float"></i>
-  </a>
-  <!-- whatsapp icon -->
+    <a class="whats-app" href="#" target="_blank">
+        <i class="fa-brands  fa-whatsapp my-float"></i>
+    </a>
+    <!-- whatsapp icon -->
     <section class="profile">
         <div class="container">
             <div class="row">
@@ -115,6 +115,26 @@ $idUSer = $_SESSION['user_id'];
                     </div>
                 </div>
                 <div class="col-md-8">
+                <?php
+                if (isset($_SESSION['status-info'])) {
+                    echo '<div class="message-from-booking">
+                        <div class="alert alert-success light alert-dismissible fade show" role="alert">
+                        <strong>Success!</strong>' . $_SESSION['status-info'] . '.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                        </div>';
+                    unset($_SESSION['status-info']);
+                }
+                if (isset($_SESSION['status-fail'])) {
+                    echo '<div class="message-from-booking">
+                        <div class="alert alert-danger light alert-dismissible fade show" role="alert">
+                        <strong>Success!</strong>' . $_SESSION['status-fail'] . '.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                        </div>';
+                    unset($_SESSION['status-fail']);
+                }
+                ?>
                     <div class="card">
                         <div class="card-body">
                             <?php
@@ -130,7 +150,7 @@ $idUSer = $_SESSION['user_id'];
                                         <th scope="col">Tanggal Pemesanan</th>
                                         <th scope="col">Status Pemesanan</th>
                                         <th scope="col">Kamar</th>
-                                        <th scope="col">Tanggal Sewa</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -144,30 +164,28 @@ $idUSer = $_SESSION['user_id'];
                                                 <th scope="row"><?php echo $i; ?></th>
                                                 <td><?php echo $dataRiwayat['created_at'] ?></td>
                                                 <td>
-                                                    <span class="<?php
-                                                    if ($dataRiwayat['status_pemesanan']=='P') {
-                                                        echo 'btn btn-sm btn-warning text-white';
-                                                    } elseif ($dataRiwayat['status_pemesanan']=='P') {
-                                                        echo 'btn btn-sm btn-success text-white';
-                                                    } else{
-                                                        echo 'btn btn-sm btn-danger text-white';
-                                                    }
-                                                     
-                                                     ?>">
-                                                    <?php
-                                                    if ($dataRiwayat['status_pemesanan']=='P') {
-                                                        echo 'Menunggu Konfirmasi';
-                                                    } elseif ($dataRiwayat['status_pemesanan']=='P') {
-                                                        echo 'Terkonfirmasi';
-                                                    } else{
-                                                        echo 'Transaksi Dibatalkan';
-                                                    }
-                                                     
-                                                     ?>
-                                                    </span>
+                                                <?php
+                                                if ($dataRiwayat['status_pemesanan']=='P') {
+                                                    echo '<span class="btn btn-sm btn-warning text-white">Menunggu Konfirmasi</span>';
+                                                }elseif($dataRiwayat['status_pemesanan']=='W'){
+                                                    echo '<a class="btn btn-sm btn-danger" href="./paymentPage.php?id_pemesanan='.$dataRiwayat['id'].'">Menunggu Pembayaran</a>';
+                                                }
+                                                ?>
                                                 </td>
                                                 <td><?php echo $dataRiwayat['nama_kost'] ?></td>
-                                                <td><?php echo $dataRiwayat['tgk_dari'] ?> - <?php echo $dataRiwayat['tgl_hingga'] ?></td>
+                                                <td>
+                                                    <div class="">
+                                                        <?php
+                                                        if ($dataRiwayat['status_pemesanan']=='P') {
+                                                           echo '<a href="detailHistory.php" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fa fa-eye" data-toggle="tooltip" title="Detail"></i></a>';
+                                                        }
+                                                        if ($dataRiwayat['status_pemesanan'] == 'W') {
+                                                            echo '
+                                                            <a href="./controller/booking/delete.php?id_pemesanan='.$dataRiwayat['id'].'" class="btn ml-4 btn-danger shadow btn-xs sharp" data-toggle="tooltip" title="Batalkan"><i class="fa fa-trash"></i></a>';
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         <?php
                                             $i++;
@@ -203,6 +221,7 @@ $idUSer = $_SESSION['user_id'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <!-- script fontawesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
 </body>
 
 </html>

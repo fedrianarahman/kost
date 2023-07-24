@@ -9,6 +9,8 @@ $fasilitas = $_POST['fasilitas_id'];
 $jumlahFasilitas= $_POST['jumlah_fasilitas'];
 $created_at = date('Y-m-d H:i:s');
 $status = "Y";
+$latitude = $_POST['latitude'];
+$longitude = $_POST['longitude'];
 // mengecek data Kamar
 $cek = mysqli_query($conn, "SELECT * FROM kost WHERE nama = '$nama_kost'");
 $r = mysqli_fetch_array($cek);
@@ -23,7 +25,9 @@ if ($r) {
         $current_fasilitas_id = $fasilitas[$i];
         $current_jumlahFasilitas = $jumlahFasilitas[$i];
         
-        $query = mysqli_query($conn, "INSERT INTO `kost`(`id`, `harga`, `nama`, `tentang_kost`, `fasilitas`, `jumlah_fasilitas`, `status`, `diskon`, `created_at`, `updated_at`) VALUES ('', '$harga_kamar', '$nama_kost', '$deskripsi_kamar', '$current_fasilitas_id', '$current_jumlahFasilitas', '$status', '0', '$created_at', '$created_at')");
+        // $query = mysqli_query($conn, "INSERT INTO `kost`(`id`, `harga`, `nama`, `tentang_kost`, `fasilitas`, `jumlah_fasilitas`, `status`, `diskon`, `created_at`, `updated_at`) VALUES ('', '$harga_kamar', '$nama_kost', '$deskripsi_kamar', '$current_fasilitas_id', '$current_jumlahFasilitas', '$status', '0', '$created_at', '$created_at')");
+
+        $query = mysqli_query($conn, "INSERT INTO `kost`(`id`, `harga`, `nama`, `tentang_kost`, `fasilitas`, `jumlah_fasilitas`, `status`, `diskon`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES ('','$harga_kamar','$nama_kost','$deskripsi_kamar','$current_fasilitas_id','$current_jumlahFasilitas','$status','0','$latitude','$longitude','$created_at','')");
 
         if (!$query) {
             $isDataInserted = false;

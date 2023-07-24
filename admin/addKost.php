@@ -105,6 +105,8 @@ if (!isset($_SESSION['nama'])) {
                                         <div class="form-group mb-3">
                                             <label>Nama Kamar</label>
                                             <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="nama_kamar" >
+                                            <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="latitude" id="latitude" hidden>
+                                            <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="longitude" id="longitude" hidden>
                                         </div>
                                         </div>
                                         <div class="col-md-6">
@@ -177,6 +179,35 @@ if (!isset($_SESSION['nama'])) {
 	<script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
     <script src="js/styleSwitcher.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <script>
+    // Fungsi untuk menampilkan lokasi pengguna
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
 
+    // Fungsi untuk menangkap dan menampilkan latitude dan longitude pada form
+    function showPosition(position) {
+      var inputLatitude = document.getElementById("latitude");
+      var inputLongitude = document.getElementById("longitude");
+
+      // Mendapatkan nilai latitude dan longitude dari objek position
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+      // Memasukkan nilai latitude dan longitude ke dalam input pada form
+      inputLatitude.value = latitude;
+      inputLongitude.value = longitude;
+    }
+
+    // Panggil fungsi getLocation saat halaman dimuat
+    getLocation();
+    </script>
 </body>
 </html>

@@ -9,9 +9,14 @@ $nama_kost = $_GET['nama_kost'];
 $deleteData = mysqli_query($conn, "DELETE FROM `kost` WHERE nama = '$nama_kost'");
 
 if ($deleteData) {
-    $_SESSION['status-info'] = "Data Kost Berhasil Dihapus";
-} else {
-    $_SESSION['status-fail'] = "Data Kost Tidak Berhasil Dihapus";
+    // menghapus gambar
+    $deleteGambar = mysqli_query($conn, "DELETE FROM gambar_kost WHERE nama_kost = '$nama_kost'");
+    if ($deleteGambar) {
+        $_SESSION['status-info'] = "Data Berhasil Dihapus";
+    } else {
+        $_SESSION['status-fail'] = "Data Gagal Dihapus";
+    }
+    
 }
 
 header("Location:../../dataKost.php");

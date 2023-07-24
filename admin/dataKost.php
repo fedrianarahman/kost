@@ -150,8 +150,10 @@ if (!isset($_SESSION['nama'])) {
                                                     <?php
                                                     if ($dataFasilitas['status'] == 'Y') {
                                                         echo '<span class="badge light badge-success">Kosong</span>';
-                                                    } else {
-                                                        echo '<a href="#" class="badge light badge-warning"><span>Terisi</span></a>';
+                                                    } elseif ($dataFasilitas['status'] == 'T') {
+                                                        echo '<span class="badge light badge-warning">Terpesan</span>';
+                                                    } else{
+                                                        echo '<a href="#" class="badge light badge-danger"><span>Terisi</span></a>';
                                                     }
                                                     
                                                     ?>

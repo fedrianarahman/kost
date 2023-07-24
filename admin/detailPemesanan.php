@@ -45,6 +45,10 @@ $nama_kamar = $_GET['nama_kost'];
     height: 100%;
     object-fit: cover;
 }
+.modal-body img{
+    width: 100%;
+    margin-right: 500px;
+}
     </style>
 </head>
 <body>
@@ -131,8 +135,9 @@ $nama_kamar = $_GET['nama_kost'];
                                 </div>
                                 <div class="col-md-4">
                                     <p>Lama Sewa : <?php echo $dataPemesanan['total_bulan_sewa']?> bulan</p>
+                                    
                                 </div>
-            
+
                                 <div class="col-md-4">
                                     <p class="font-weight-bold">Total Bayar : Rp. <?php $totalBayar = $dataPemesanan['harga_kost'] * $dataPemesanan['total_bulan_sewa'];
                                     echo number_format($totalBayar, 0, ',', '.') ?></p>
@@ -145,9 +150,31 @@ $nama_kamar = $_GET['nama_kost'];
                                 </div>
                                 <div class="col-md-4">
                                     <p class="mb-2 font-weight-bold">Bukti Transfer :</p>
+                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">
                                     <div class="img-bukti-tf mb-2">
                                     <img src="./images/image-content/<?php echo $dataPemesanan['bukti_tf']?>" alt="">
                                     </div>
+                                    </a>
+                                         <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <img src="./images/image-content/<?php echo $dataPemesanan['bukti_tf']?>" alt="">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                                 <div class="col-md-4">
                                     <p >Akun Bank Yang Dituju : <span class="font-weight-bold"><?php echo  $dataPemesanan['nama_bank']?>/<?php echo  $dataPemesanan['nama_pemilik']?></span> </p>

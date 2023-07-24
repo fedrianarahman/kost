@@ -10,7 +10,7 @@ $emailPenyewa = $_POST['email_penyewa'];
 $noHpPenyewa = $_POST['no_hp_penyewa'];
 $sewaDari = $_POST['sewa_dari'];
 $sewaHingga = $_POST['sewa_hingga'];
-$created_at = "";
+$created_at = date('Y-m-d H:i:s');
 $statusPemesanan = "Y";
 $totalBulan = 1;
 $selisih_detik = strtotime($sewaDari) - strtotime($sewaHingga);
@@ -35,14 +35,14 @@ if ($result != null) {
     header("Location:../../bookingPage.php?nama_kost=$namaKamar&harga_kost=$hargaKamar");
 } else {
     // Menambahkan data ke tb_pemesanan
-    $query = mysqli_query($conn, "INSERT INTO `tb_pemesanan`(`id`, `userId`, `nama_pemesan`, `email_pemesan`, `no_hp_pemesan`, `tgk_dari`, `tgl_hingga`, `total_bulan_sewa`,`nama_kost`, `harga_kost`, `via_bank`, `nama_pengirim`, `bukti_tf`, `jumlah`, `asal_bank`, `sisa_bayar`, `status_pemesanan`, `created_at`, `updated_at`) VALUES ('','$userId','$namaPenyewa','$emailPenyewa','$noHpPenyewa','$sewaDari','$sewaHingga','$totalBulan','$namaKamar','$hargaKamar','','','','','','','','$created_at','')");
+    $query = mysqli_query($conn, "INSERT INTO `tb_pemesanan`(`id`, `userId`, `nama_pemesan`, `email_pemesan`, `no_hp_pemesan`, `tgk_dari`, `tgl_hingga`, `total_bulan_sewa`,`nama_kost`, `harga_kost`, `via_bank`, `nama_pengirim`, `bukti_tf`, `jumlah`, `asal_bank`, `sisa_bayar`, `status_pemesanan`, `created_at`, `updated_at`) VALUES ('','$userId','$namaPenyewa','$emailPenyewa','$noHpPenyewa','$sewaDari','$sewaHingga','$totalBulan','$namaKamar','$hargaKamar','','','','','','','W','$created_at','')");
 
     $idPemesanan = mysqli_insert_id($conn);
     if ($query) {
         $_SESSION['status-info'] = "Silahkan Lakukan Pembayaran";
         $_SESSION['id_pemesanan'] = $idPemesanan;
         $_SESSION['harga'] = $hargaKamar;
-        header("Location:../../paymentPage.php");
+        header("Location:../../paymentPage.php?id_pemesanan=$idPemesanan");
     }
 }
 

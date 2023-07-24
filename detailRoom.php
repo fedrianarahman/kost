@@ -1,11 +1,7 @@
 <?php
 session_start();
 include './controller/conn.php';
-// Cek apakah sesi login telah diatur
-if (!isset($_SESSION['nama'])) {
-  header("Location: ./auth/login.php");
-  exit();
-}
+
 $nama_kost = $_GET['nama_kost'];
 $harga_kost = $_GET['harga_kost'];
 ?>

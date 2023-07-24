@@ -184,26 +184,24 @@ $harga_kost = $_GET['harga_kost'];
                     <h1 class="name-fish-detail"> Room <?php echo $nama_kost ?></h1>
                     <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga : <?php echo number_format($harga_kost, 0, ',', '.') ?></h2>
                     <div class="group-product-detail">
-                        <h5 class="name-product-detail">Data detail pemesan wajib diisi : </h5>
+                        <h5 class="name-product-detail">Silahkan Pilih Tanggal  :  </h5>
                         <form action="./controller/booking/add.php" method="POST">
                             <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <label for="" class="mb-2">*Nama</label>
-                                    <input type="text" class="form-control" id="nama" required name="user_id" hidden autofocus placeholder="Nama" value="<?php echo $_SESSION['user_id'] ?>">
+
+                                    <!-- id user -->
+                                     <input type="text" class="form-control" id="nama" required name="user_id" hidden autofocus placeholder="Nama" value="<?php echo $_SESSION['user_id'] ?>">
+                                     <!-- id user -->
+
+                                     <!-- harga dan nama kost -->
                                     <input type="text" class="form-control" id="nama" required name="nama_kost" hidden autofocus placeholder="Nama" value="<?php echo $nama_kost ?>">
                                     <input type="text" class="form-control" id="nama" required name="harga_kost" hidden autofocus placeholder="Nama" value="<?php echo $harga_kost ?>">
-                                    <input type="text" class="form-control" id="nama" required name="nama_penyewa" autofocus placeholder="Nama">
+                                    <!-- end harga, dan nama kost -->
 
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="" class="mb-2">*Email</label>
-                                    <input type="email" class="form-control" id="email" required name="email_penyewa" placeholder="Email">
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="" class="mb-2">No Telpon</label>
-                                    <input type="text" class="form-control" id="nophone" required name="no_hp_penyewa" placeholder="Phone">
-                                </div>
-
+                                    <!-- nama, email, no hp -->
+                                    <input type="text" class="form-control" id="nama" required name="nama_penyewa" autofocus placeholder="Nama" value="<?php echo $_SESSION['nama']?>" hidden>
+                                    <input type="email" class="form-control" id="email" required name="email_penyewa" placeholder="Email" value="<?php echo $_SESSION['email']?>" hidden>
+                                    <input type="text" class="form-control" id="nophone" required name="no_hp_penyewa" placeholder="Phone" value="<?php echo $_SESSION['no_hp']?>" hidden>
+                                    <!-- end nama,email,no_hp -->
                                 <div class="mb-3 col-md-6">
                                     <label for="" class="mb-2">Tanggal Sewa Dari</label>
                                     <input type="Date" class="form-control" id="minbookingDate" required name="sewa_dari" placeholder="Phone">
