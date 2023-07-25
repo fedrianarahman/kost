@@ -105,8 +105,10 @@ if (!isset($_SESSION['nama'])) {
                                         <div class="form-group mb-3">
                                             <label>Nama Kamar</label>
                                             <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="nama_kamar" >
-                                            <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="latitude" id="latitude" hidden>
-                                            <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="longitude" id="longitude" hidden>
+                                            <!-- lokasi -->
+                                            <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="latitude" id="latitude" >
+                                            <input type="text" class="form-control input-default " placeholder="Nama Kamar" name="longitude" id="longitude" >
+                                            <!-- end lokasi -->
                                         </div>
                                         </div>
                                         <div class="col-md-6">

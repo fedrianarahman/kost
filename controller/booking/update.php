@@ -21,7 +21,7 @@ $resultHarga = $totalBayar  * (1 - $diskon);
 if ($jumlah <= $resultHarga) {
     echo '<script>
     alert("Nominal Tidak Sesuai");
-    window.location.href = "../../paymentPage.php";
+    window.location.href = "../../paymentPage.php?id_pemesanan='.$idPemesanan.'";
     </script>';
 } else {
     // mengupdate data
