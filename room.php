@@ -261,16 +261,16 @@ include './controller/conn.php';
     } else {
       console.log('Geolocation tidak didukung oleh browser ini.');
     }
-    var popup = L.popup();
+//     var popup = L.popup();
 
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
-}
+// function onMapClick(e) {
+//     popup
+//         .setLatLng(e.latlng)
+//         .setContent("You clicked the map at " + e.latlng.toString())
+//         .openOn(map);
+// }
 
-map.on('click', onMapClick);
+// map.on('click', onMapClick);
     </script>       
   </body>
 </html>
