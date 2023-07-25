@@ -72,9 +72,9 @@ if (!isset($_SESSION['nama'])) {
   <br />
   <div class="container">
     <!-- whatsapp icon -->
-   <a class="whats-app" href="#" target="_blank">
+   <!-- <a class="whats-app" href="#" target="_blank">
     <i class="fa-brands  fa-whatsapp my-float"></i>
-  </a>
+  </a> -->
   <!-- whatsapp icon -->
     <!-- about -->
     <section class="hero">
