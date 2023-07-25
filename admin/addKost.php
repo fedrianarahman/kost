@@ -200,7 +200,8 @@ if (!isset($_SESSION['nama'])) {
       // Mendapatkan nilai latitude dan longitude dari objek position
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
-
+        console.log("line 203", latitude);
+        console.log("line 204", longitude);
       // Memasukkan nilai latitude dan longitude ke dalam input pada form
       inputLatitude.value = latitude;
       inputLongitude.value = longitude;
