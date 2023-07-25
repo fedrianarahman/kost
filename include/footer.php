@@ -9,9 +9,9 @@
                 <div class="col-md-3">
                   <h2>Link</h2>
                   <ul>
-                    <li><a href="">Beranda</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Room</a></li>
+                    <li><a href="./index.php">Beranda</a></li>
+                    <li><a href="./about.php">About</a></li>
+                    <li><a href="./room.php">Room</a></li>
                   </ul>
                 </div>
                 <div class="col-md-3">

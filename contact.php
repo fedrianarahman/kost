@@ -37,6 +37,25 @@ if (!isset($_SESSION['nama'])) {
     .kontak-kami{
         font-size: 18px;
     }
+    .img {
+    padding-top: 15px;
+    right: 0;
+    padding-left: 10px;
+}
+
+.image-wrapper {
+    max-width: 498px;
+    max-height: 421.875px;
+    position: relative;
+    z-index: 1;
+}
+
+.image-wrapper img {
+    width: 100%;
+    border-radius: 100px 15px 15px 15px;
+    object-fit: fill;
+    height: 400px;
+}
   </style>
 </head>
 
@@ -77,7 +96,7 @@ if (!isset($_SESSION['nama'])) {
         <div class="col-md-6">
         <div class="img ">
                             <div class="image-wrapper">
-                                <img src="./assets/img//hero.jpg" alt="">
+                                <img src="./assets/img/buida.jpeg" alt="">
                             </div>
                             <div class="bg-hero-image"></div>
                         </div>
