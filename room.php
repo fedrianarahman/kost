@@ -239,7 +239,7 @@ include './controller/conn.php';
         var locations = <?php echo $locations_json; ?>;
         locations.forEach(function(location) {
             var marker = L.marker([location.latitude, location.longitude]).addTo(map);
-            marker.bindPopup(`<div><a style='text-decoration:none; color:#152C5B;' href='./detailRoom.php?nama_kost=${location.nama}&harga_kost=${location.harga}'><img src='./assets/img/buida.jpeg' style='margin-bottom:10px;' width='150px'/><br/><b>${location.nama}</b></a></div>`);
+            marker.bindPopup(`<div><a style='text-decoration:none; color:#152C5B;' href='./detailRoom.php?nama_kost=${location.nama}&harga_kost=${location.harga}'><img src='./assets/img/buida.jpeg' style='margin-bottom:10px;' width='150px'/><br/><b>Kost Bu Ida</b></a></div>`);
         });
          // Fungsi untuk menampilkan marker pada lokasi pengguna
     function showUserLocation(position) {
