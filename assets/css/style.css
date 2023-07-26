@@ -823,3 +823,12 @@ font-weight: 300;
   .my-float {
     margin-top: 10px;
   }
+
+  /* photo kost */
+  .photo-kost{
+    margin-bottom: 150px;
+  }
+  .photo-kost h2{
+    text-align: center;
+  }
+  

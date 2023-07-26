@@ -26,6 +26,11 @@
 							<span class="nav-text">Fasilitas Kost</span>
 						</a>
                     </li>
+					<li ><a class=" ai-icon" href="dataGallery.php" aria-expanded="false">
+					<i class="fa fa-camera" aria-hidden="true"></i>
+							<span class="nav-text">Gallery Kost</span>
+						</a>
+                    </li>
 					<li ><a class=" ai-icon" href="dataKost.php" aria-expanded="false">
 					<i class="fa fa-tasks"></i>
 							<span class="nav-text">Kamar Kost</span>
@@ -49,7 +54,7 @@
 							<?php }?>
                             
 							<li><a href="dataPenyewa.php">Data Penyewa</a></li>
-							<li><a href="dataRole.php">Data Penghuni</a></li>
+							<!-- <li><a href="dataRole.php">Data Penghuni</a></li> -->
                         </ul>
                     </li>
                 </ul>
