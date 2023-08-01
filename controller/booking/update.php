@@ -18,14 +18,14 @@ $sisaBayar = $totalBayar - $jumlah;
 $diskon = 50/100;
 $resultHarga = $totalBayar  * (1 - $diskon);
 
-if ($jumlah <= $resultHarga) {
+if ($jumlah < $resultHarga) {
     echo '<script>
     alert("Nominal Tidak Sesuai");
     window.location.href = "../../paymentPage.php?id_pemesanan='.$idPemesanan.'";
     </script>';
 } else {
     // mengupdate data
-    $query = mysqli_query($conn, "UPDATE `tb_pemesanan` SET `via_bank` = '$akunTujuan', `nama_pengirim` = '$namaPengirim', `bukti_tf` = '$photo', `jumlah` = '$jumlah', `asal_bank` = '$asalBank', `sisa_bayar` = '$sisaBayar', `status_pemesanan` = 'P', `created_at` = '2023-07-13' WHERE `tb_pemesanan`.`id` = '$idPemesanan'");
+    $query = mysqli_query($conn, "UPDATE `tb_pemesanan` SET `via_bank` = '$akunTujuan', `nama_pengirim` = '$namaPengirim', `bukti_tf` = '$photo', `jumlah` = '$jumlah', `asal_bank` = '$asalBank', `sisa_bayar` = '$sisaBayar', `status_pemesanan` = 'P', `expire_start` = '',`expire_end` = '' WHERE `tb_pemesanan`.`id` = '$idPemesanan'");
     if ($query) {
         header("Location:../../seuccessPaymentPage.php");
         exit();

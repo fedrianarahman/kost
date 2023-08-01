@@ -8,6 +8,7 @@ if (!isset($_SESSION['nama'])) {
 }
 $nama_kost = $_GET['nama_kost'];
 $harga_kost = $_GET['harga_kost'];
+$idUSer = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,7 +127,14 @@ $harga_kost = $_GET['harga_kost'];
         }
     </style>
 </head>
-
+<?php
+// mengecek apakah ada pemesanan yang tertunda?
+$getDataPemesanan = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE userId = '$idUSer' AND status_pemesanan = 'W'");
+$rDataPemesanan = mysqli_fetch_row($getDataPemesanan);
+if ($rDataPemesanan > 0) {
+    $_SESSION['status-fail'] = "Anda Memilik Transaksi Yang Belum Selesai Atau Silahkan Batalkan Transaksi";
+    header("Location:myHistory.php");
+} else { ?>
 <body>
     <!-- navigasi -->
     <?php include './include/navbar.php' ?>
@@ -184,24 +192,24 @@ $harga_kost = $_GET['harga_kost'];
                     <h1 class="name-fish-detail"> Room <?php echo $nama_kost ?></h1>
                     <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga : <?php echo number_format($harga_kost, 0, ',', '.') ?></h2>
                     <div class="group-product-detail">
-                        <h5 class="name-product-detail">Silahkan Pilih Tanggal  :  </h5>
+                        <h5 class="name-product-detail">Silahkan Pilih Tanggal : </h5>
                         <form action="./controller/booking/add.php" method="POST">
                             <div class="row">
 
-                                    <!-- id user -->
-                                     <input type="text" class="form-control" id="nama" required name="user_id" hidden autofocus placeholder="Nama" value="<?php echo $_SESSION['user_id'] ?>">
-                                     <!-- id user -->
+                                <!-- id user -->
+                                <input type="text" class="form-control" id="nama" required name="user_id" hidden autofocus placeholder="Nama" value="<?php echo $_SESSION['user_id'] ?>">
+                                <!-- id user -->
 
-                                     <!-- harga dan nama kost -->
-                                    <input type="text" class="form-control" id="nama" required name="nama_kost" hidden autofocus placeholder="Nama" value="<?php echo $nama_kost ?>">
-                                    <input type="text" class="form-control" id="nama" required name="harga_kost" hidden autofocus placeholder="Nama" value="<?php echo $harga_kost ?>">
-                                    <!-- end harga, dan nama kost -->
+                                <!-- harga dan nama kost -->
+                                <input type="text" class="form-control" id="nama" required name="nama_kost" hidden autofocus placeholder="Nama" value="<?php echo $nama_kost ?>">
+                                <input type="text" class="form-control" id="nama" required name="harga_kost" hidden autofocus placeholder="Nama" value="<?php echo $harga_kost ?>">
+                                <!-- end harga, dan nama kost -->
 
-                                    <!-- nama, email, no hp -->
-                                    <input type="text" class="form-control" id="nama" required name="nama_penyewa" autofocus placeholder="Nama" value="<?php echo $_SESSION['nama']?>" hidden>
-                                    <input type="email" class="form-control" id="email" required name="email_penyewa" placeholder="Email" value="<?php echo $_SESSION['email']?>" hidden>
-                                    <input type="text" class="form-control" id="nophone" required name="no_hp_penyewa" placeholder="Phone" value="<?php echo $_SESSION['no_hp']?>" hidden>
-                                    <!-- end nama,email,no_hp -->
+                                <!-- nama, email, no hp -->
+                                <input type="text" class="form-control" id="nama" required name="nama_penyewa" autofocus placeholder="Nama" value="<?php echo $_SESSION['nama'] ?>" hidden>
+                                <input type="email" class="form-control" id="email" required name="email_penyewa" placeholder="Email" value="<?php echo $_SESSION['email'] ?>" hidden>
+                                <input type="text" class="form-control" id="nophone" required name="no_hp_penyewa" placeholder="Phone" value="<?php echo $_SESSION['no_hp'] ?>" hidden>
+                                <!-- end nama,email,no_hp -->
                                 <div class="mb-3 col-md-6">
                                     <label for="" class="mb-2">Tanggal Sewa Dari</label>
                                     <input type="Date" class="form-control" id="minbookingDate" required name="sewa_dari" placeholder="Phone">
@@ -224,42 +232,9 @@ $harga_kost = $_GET['harga_kost'];
         </div>
     </section>
     <!-- booking -->
-                       
+
     <!-- footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <img src="./assets/img/logo.png" alt="" />
-                    <p>We Provide For Your Beautiful Holiday Instantly and memorable</p>
-                </div>
-                <div class="col-md-3">
-                    <h2>For Beginer</h2>
-                    <ul>
-                        <li><a href="">New Account</a></li>
-                        <li><a href="">Start Booking Room</a></li>
-                        <li><a href="">Use Payment</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h2>For Beginer</h2>
-                    <ul>
-                        <li><a href="">New Account</a></li>
-                        <li><a href="">Start Booking Room</a></li>
-                        <li><a href="">Use Payment</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h2>For Beginer</h2>
-                    <ul>
-                        <li><a href="">New Account</a></li>
-                        <li><a href="">Start Booking Room</a></li>
-                        <li><a href="">Use Payment</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php include './include/footer.php' ?>
     <!-- end footer -->
 
     <!-- script bootstrap -->
@@ -268,52 +243,55 @@ $harga_kost = $_GET['harga_kost'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
-      let date = new Date();
-      let  tdate = date.getDate();
-      let moth = date.getMonth() + 1;
-      
-      if (tdate < 10) {
-        tdate = '0' + tdate;
-      }
-      if (moth < 10) {
-        moth = '0' + moth;
-      }
+        let date = new Date();
+        let tdate = date.getDate();
+        let moth = date.getMonth() + 1;
 
-      let year = date.getFullYear();
-      let minDate = year + '-'+ moth + '-'+ tdate;
+        if (tdate < 10) {
+            tdate = '0' + tdate;
+        }
+        if (moth < 10) {
+            moth = '0' + moth;
+        }
+
+        let year = date.getFullYear();
+        let minDate = year + '-' + moth + '-' + tdate;
         //menentukan jumlah bulan yang ditentukan
-      let maxDate = new Date();
-      let maxDateTanggal = maxDate.getDate();
-      let maxDateBulan = maxDate.getMonth()+3;
+        let maxDate = new Date();
+        let maxDateTanggal = maxDate.getDate();
+        let maxDateBulan = maxDate.getMonth() + 3;
 
-      if (maxDateTanggal < 10) {
-        maxDateTanggal = '0' + maxDateTanggal;
-      }
-      if (maxDateBulan <10) {
-        maxDateBulan = '0' + maxDateBulan;
-      }
-      
-      let maxDateYear = maxDate.getFullYear();
+        if (maxDateTanggal < 10) {
+            maxDateTanggal = '0' + maxDateTanggal;
+        }
+        if (maxDateBulan < 10) {
+            maxDateBulan = '0' + maxDateBulan;
+        }
 
-      let maxDatePicked = year + '-' + maxDateBulan + '-' + maxDateTanggal;
+        let maxDateYear = maxDate.getFullYear();
 
-    //   menentukan minimal tanggal yang dipilih
-      let minBulanPicked = maxDate.getMonth()+2;
-      if (minBulanPicked <10) {
-        minBulanPicked = '0' + minBulanPicked;
-      }   
-      let minTanggalDipilih = year + '-' + minBulanPicked + '-'+ maxDateTanggal;
+        let maxDatePicked = year + '-' + maxDateBulan + '-' + maxDateTanggal;
 
-    // menghitung total jumlah hari yang dipilih
-    let totalHari = minTanggalDipilih
+        //   menentukan minimal tanggal yang dipilih
+        let minBulanPicked = maxDate.getMonth() + 2;
+        if (minBulanPicked < 10) {
+            minBulanPicked = '0' + minBulanPicked;
+        }
+        let minTanggalDipilih = year + '-' + minBulanPicked + '-' + maxDateTanggal;
 
-      document.getElementById("minbookingDate").setAttribute("min",minDate);
-      document.getElementById("minbookingDate").setAttribute("max",maxDatePicked);
-      document.getElementById("maxbookingDate").setAttribute("min",minTanggalDipilih);
-      document.getElementById("maxbookingDate").setAttribute("max",maxDatePicked);
-      console.log("line 279", minDate, minTanggalDipilih);
+        // menghitung total jumlah hari yang dipilih
+        let totalHari = minTanggalDipilih
+
+        document.getElementById("minbookingDate").setAttribute("min", minDate);
+        document.getElementById("minbookingDate").setAttribute("max", maxDatePicked);
+        document.getElementById("maxbookingDate").setAttribute("min", minTanggalDipilih);
+        document.getElementById("maxbookingDate").setAttribute("max", maxDatePicked);
+        console.log("line 279", minDate, minTanggalDipilih);
     </script>
 
 </body>
+<?php } ?>
+
+
 
 </html>

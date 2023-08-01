@@ -4,6 +4,7 @@ include './controller/conn.php';
 
 $nama_kost = $_GET['nama_kost'];
 $harga_kost = $_GET['harga_kost'];
+$idUSer = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,8 +108,9 @@ $harga_kost = $_GET['harga_kost'];
               <div class="start-booking-text">
                 <span class="active">Rp <?php echo number_format($harga_kost, 0, ',', '.') ?></span>/month
               </div>
-
-              <a class="btn-contact-now btn" href="./bookingPage.php?nama_kost=<?php echo $nama_kost?>&harga_kost=<?php echo $harga_kost?>">Book Now</a>
+             
+                 <a class="btn-contact-now btn" href="./bookingPage.php?nama_kost=<?php echo $nama_kost?>&harga_kost=<?php echo $harga_kost?>">Book Now</a>
+              
             </div>
           </div>
         </div>
@@ -187,41 +189,7 @@ $harga_kost = $_GET['harga_kost'];
     <!-- testimonial -->
   </div>
   <!-- footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <img src="./assets/img/logo.png" alt="">
-          <p>We Provide For Your Beautiful Holiday
-            Instantly and memorable</p>
-        </div>
-        <div class="col-md-3">
-          <h2>For Beginer</h2>
-          <ul>
-            <li><a href="">New Account</a></li>
-            <li><a href="">Start Booking Room</a></li>
-            <li><a href="">Use Payment</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h2>For Beginer</h2>
-          <ul>
-            <li><a href="">New Account</a></li>
-            <li><a href="">Start Booking Room</a></li>
-            <li><a href="">Use Payment</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h2>For Beginer</h2>
-          <ul>
-            <li><a href="">New Account</a></li>
-            <li><a href="">Start Booking Room</a></li>
-            <li><a href="">Use Payment</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php include './include/footer.php' ?>
   <!-- end footer -->
 
   <!-- script bootstrap -->

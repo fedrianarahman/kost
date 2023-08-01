@@ -55,16 +55,16 @@ $idUSer = $_SESSION['user_id'];
     font-weight: 300;
   }
   .img-my-kost {
-    height: 200px;
+    /* height: 300px; */
     width: 150px;
-    background: #000;
+    /* background: #000; */
     position: relative;
     overflow: hidden;
 }
 .img-my-kost img{
-    width: 100%;
+    /* width: 100%; */
     object-fit: fill;
-    height: 100%;
+    /* height: 100%; */
 }
 </style>
 
@@ -95,8 +95,8 @@ $idUSer = $_SESSION['user_id'];
             if ($dataPhoto && $dataPhoto['photo'] !== '') {
               // Jika terdapat data foto pada tabel user
             ?>
-              <div class="img-profile">
-                <img src="./assets/img/imageProfile/<?php echo $dataPhoto['photo'] ?>" alt="">
+               <div class=" mb-4 ">
+                <img src="./assets/img/imageProfile/<?php echo $dataPhoto['photo'] ?>" alt="" class="rounded-3 shadow-4"  style="width: 150px;" alt="Avatar">
               </div>
             <?php
             } else {
@@ -112,7 +112,7 @@ $idUSer = $_SESSION['user_id'];
               <ul>
                 <li><a href="./profileUser.php"><i class="fa-regular fa-user mr-4"></i><span class="side-menu-item">My Profile</span></a></li>
                 <li><a href="./myHistory.php"><i class="fa-regular fa-user mr-4"></i><span class="side-menu-item">History</span></a></li>
-                <li><a href="./myKost.php"><i class="fa-regular fa-user mr-4"></i><span class="side-menu-item">My Kost</span></a></li>
+                <li class="bg-primary text-white"><a href="./myKost.php"><i class="fa-regular fa-user mr-4"></i><span class="side-menu-item">My Kost</span></a></li>
               </ul>
             </div>
           </div>
@@ -122,18 +122,23 @@ $idUSer = $_SESSION['user_id'];
             <div class="card-body">
               <?php
               $getKost = mysqli_query($conn, "SELECT * FROM tb_pemesanan LEFT JOIN kost ON kost.nama = tb_pemesanan.nama_kost INNER JOIN gambar_kost ON gambar_kost.nama_kost = tb_pemesanan.nama_kost WHERE tb_pemesanan.userId = '$idUSer' AND tb_pemesanan.status_pemesanan = 'A' GROUP BY kost.nama");
-              while ($dataKost = mysqli_fetch_array($getKost)) {               
+              while ($dataKost = mysqli_fetch_array($getKost)) {          
+                date_default_timezone_set('Asia/Jakarta'); // Atur zona waktu ke WIB (Waktu Indonesia Bagian Barat)
+                $currentDari = strtotime($dataKost['tgk_dari']);  
+                $currentHingga = strtotime($dataKost['tgl_hingga']);
+                $realTglDari = date('F d, Y H:i:s', $currentDari);   
+                $realHingga = date('F d, Y H:i:s', $currentHingga);
               ?>
-               <div class="row mb-2">
+               <div class="row mb-4">
                 <div class="col-md-3">
                   <div class="img-my-kost">
-                    <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost']?>" alt="">
+                    <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost']?>" class="rounded-3 shadow-4" alt="">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="my-kost-content">
                     <h2><?php echo $dataKost['nama']?></h2>
-                    <p>Tanggal Sewa : <?php echo $dataKost['tgk_dari']?> hingga <?php echo $dataKost['tgl_hingga']?></p>
+                    <p>Tanggal Sewa : <?php echo $realTglDari?> hingga <?php echo $realHingga?></p>
 
                   </div>
                 </div>
@@ -147,40 +152,7 @@ $idUSer = $_SESSION['user_id'];
     </div>
   </section>
   <!-- footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <img src="./assets/img/logo.png" alt="" />
-          <p>We Provide For Your Beautiful Holiday Instantly and memorable</p>
-        </div>
-        <div class="col-md-3">
-          <h2>For Beginer</h2>
-          <ul>
-            <li><a href="">New Account</a></li>
-            <li><a href="">Start Booking Room</a></li>
-            <li><a href="">Use Payment</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h2>For Beginer</h2>
-          <ul>
-            <li><a href="">New Account</a></li>
-            <li><a href="">Start Booking Room</a></li>
-            <li><a href="">Use Payment</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h2>For Beginer</h2>
-          <ul>
-            <li><a href="">New Account</a></li>
-            <li><a href="">Start Booking Room</a></li>
-            <li><a href="">Use Payment</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php include './include/footer.php'?>
   <!-- end footer -->
 
   <!-- script bootstrap -->

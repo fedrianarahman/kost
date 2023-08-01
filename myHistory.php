@@ -7,6 +7,7 @@ if (!isset($_SESSION['nama'])) {
     exit();
 }
 $idUSer = $_SESSION['user_id'];
+date_default_timezone_set('Asia/Jakarta'); // Atur zona waktu ke WIB (Waktu Indonesia Bagian Barat)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,9 +93,9 @@ $idUSer = $_SESSION['user_id'];
                         if ($dataPhoto && $dataPhoto['photo'] !== '') {
                             // Jika terdapat data foto pada tabel user
                         ?>
-                            <div class="img-profile">
-                                <img src="./assets/img/imageProfile/<?php echo $dataPhoto['photo'] ?>" alt="">
-                            </div>
+                              <div class=" mb-4 ">
+                <img src="./assets/img/imageProfile/<?php echo $dataPhoto['photo'] ?>" alt="" class="rounded-3 shadow-4"  style="width: 150px;" alt="Avatar">
+              </div>
                         <?php
                         } else {
                             // Jika tidak ada data foto pada tabel user, tampilkan gambar default
@@ -115,26 +116,26 @@ $idUSer = $_SESSION['user_id'];
                     </div>
                 </div>
                 <div class="col-md-8">
-                <?php
-                if (isset($_SESSION['status-info'])) {
-                    echo '<div class="message-from-booking">
+                    <?php
+                    if (isset($_SESSION['status-info'])) {
+                        echo '<div class="message-from-booking">
                         <div class="alert alert-success light alert-dismissible fade show" role="alert">
                         <strong>Success!</strong>' . $_SESSION['status-info'] . '.
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                         </div>';
-                    unset($_SESSION['status-info']);
-                }
-                if (isset($_SESSION['status-fail'])) {
-                    echo '<div class="message-from-booking">
+                        unset($_SESSION['status-info']);
+                    }
+                    if (isset($_SESSION['status-fail'])) {
+                        echo '<div class="message-from-booking">
                         <div class="alert alert-danger light alert-dismissible fade show" role="alert">
                         <strong>Success!</strong>' . $_SESSION['status-fail'] . '.
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                         </div>';
-                    unset($_SESSION['status-fail']);
-                }
-                ?>
+                        unset($_SESSION['status-fail']);
+                    }
+                    ?>
                     <div class="card">
                         <div class="card-body">
                             <?php
@@ -157,6 +158,7 @@ $idUSer = $_SESSION['user_id'];
                                     <?php
                                     $getPemesanan = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE userId = '$idUSer'");
                                     $i = 1;
+                                    // global
                                     if (mysqli_num_rows($getPemesanan) > 0) {
                                         while ($dataRiwayat = mysqli_fetch_array($getPemesanan)) {
                                     ?>
@@ -164,24 +166,40 @@ $idUSer = $_SESSION['user_id'];
                                                 <th scope="row"><?php echo $i; ?></th>
                                                 <td><?php echo $dataRiwayat['created_at'] ?></td>
                                                 <td>
-                                                <?php
-                                                if ($dataRiwayat['status_pemesanan']=='P') {
-                                                    echo '<span class="btn btn-sm btn-warning text-white">Menunggu Konfirmasi</span>';
-                                                }elseif($dataRiwayat['status_pemesanan']=='W'){
-                                                    echo '<a class="btn btn-sm btn-danger" href="./paymentPage.php?id_pemesanan='.$dataRiwayat['id'].'">Menunggu Pembayaran</a>';
-                                                }
-                                                ?>
+                                                    <!-- <?php
+                                                            if ($dataRiwayat['status_pemesanan'] == 'P') {
+                                                                echo '';
+                                                            } elseif ($dataRiwayat['status_pemesanan'] == 'W') {
+                                                                echo '<a class="btn btn-sm btn-danger" href="./paymentPage.php?id_pemesanan=' . $dataRiwayat['id'] . '">Menunggu Pembayaran : 56 m : 32 s</a>';
+                                                            }
+                                                            ?> -->
+                                                    <?php
+                                                    if ($dataRiwayat['status_pemesanan'] == 'P') {
+                                                    ?>
+                                                        <span class="btn btn-sm btn-warning text-white">Menunggu Konfirmasi</span>
+                                                    <?php } elseif ($dataRiwayat['status_pemesanan'] == 'W') {
+                                                    ?>
+                                                        <div id="counter"></div>
+                                                    <?php } elseif($dataRiwayat['status_pemesanan'] == 'A'){
+                                                    ?>
+                                                     <span class="btn light btn-sm btn-success text-white">Terkonfirmasi</span>
+                                                    <?php }?>
                                                 </td>
                                                 <td><?php echo $dataRiwayat['nama_kost'] ?></td>
                                                 <td>
                                                     <div class="">
                                                         <?php
-                                                        if ($dataRiwayat['status_pemesanan']=='P') {
-                                                           echo '<a href="detailHistory.php" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fa fa-eye" data-toggle="tooltip" title="Detail"></i></a>';
+                                                        if ($dataRiwayat['status_pemesanan'] == 'P') {
+                                                            echo '<a href="detailHistory.php?id_pemesanan='.$dataRiwayat['id'].'" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fa fa-eye" data-toggle="tooltip" title="Detail"></i></a>';
                                                         }
                                                         if ($dataRiwayat['status_pemesanan'] == 'W') {
                                                             echo '
-                                                            <a href="./controller/booking/delete.php?id_pemesanan='.$dataRiwayat['id'].'" class="btn ml-4 btn-danger shadow btn-xs sharp" data-toggle="tooltip" title="Batalkan"><i class="fa fa-trash"></i></a>';
+                                                            <a href="./controller/booking/delete.php?id_pemesanan=' . $dataRiwayat['id'] . '" class="btn ml-4 btn-danger shadow btn-xs sharp" data-toggle="tooltip" title="Batalkan"><i class="fa fa-trash"></i></a>';
+                                                        }
+                                                        if ($dataRiwayat['status_pemesanan'] == 'A') {
+                                                            echo '
+                                                            <a href="myKost.php" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fa fa-eye" data-toggle="tooltip" title="Detail"></i></a>
+                                                            ';
                                                         }
                                                         ?>
                                                     </div>
@@ -207,6 +225,18 @@ $idUSer = $_SESSION['user_id'];
                             </table>
                         </div>
                     </div>
+                    <?php
+                    // mengambil data pemesanan berdasarkan id untuk set time
+                    $getDataForTime = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE userId = '$idUSer' AND status_pemesanan = 'W'");
+                    $rGetDataForTime = mysqli_fetch_array($getDataForTime);
+                    if ($rGetDataForTime > 0) {
+                        $dataWaktu = strtotime($rGetDataForTime['expire_end']);
+                    $getDateTime = date("F d, Y H:i:s", $dataWaktu);
+                    $idPemesanan = $rGetDataForTime['id']; 
+                    }
+                    
+                    ?>
+                    <!-- <p><?php echo $rGetDataForTime['id'] ?></p> -->
                 </div>
             </div>
         </div>
@@ -221,7 +251,33 @@ $idUSer = $_SESSION['user_id'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <!-- script fontawesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    
+    <script>
+          var countDownTimer = new Date("<?php echo "$getDateTime"; ?>").getTime();
+        // console.log("line 49", countDownTimer);
+        // Update the count down every 1 second
+        var interval = setInterval(function() {
+            var current = new Date().getTime();
+            // console.log("line 52", current);
+            // Find the difference between current and the count down date
+            var diff = countDownTimer - current;
+            // console.log("line 56", diff);
+            // Countdown Time calculation for days, hours, minutes and seconds
+            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            console.log("line 62", seconds);
+
+            // document.getElementById("counter").innerHTML = "Batas Waktu Pembayaran : " +
+            // minutes + "m " + seconds + "s ";
+            document.getElementById("counter").innerHTML = `<a href='./paymentPage.php?id_pemesanan=<?php echo $idPemesanan;?>' class='btn btn-sm btn-danger'>Batas Waktu: ${minutes} menit : ${seconds} detik</a>`;
+            // Display Expired, if the count down is over
+            if (diff < 0) {
+                clearInterval(interval);
+                document.getElementById("counter").innerHTML = `<span class="btn btn-sm btn-danger text-white">Expire</span>`;
+            }
+        }, 1000);
+    </script>
 </body>
 
 </html>

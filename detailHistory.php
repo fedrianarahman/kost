@@ -7,6 +7,7 @@ if (!isset($_SESSION['nama'])) {
     exit();
 }
 $idUSer = $_SESSION['user_id'];
+$idPemesanan = $_GET['id_pemesanan'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,9 +47,36 @@ $idUSer = $_SESSION['user_id'];
   }
   .card-custom{
     box-shadow: 0px 4px 14px 0px rgba(209, 224, 255, 0.30);
-
-
   }
+  .img-detail-history-wrapper{
+    width: 400px;
+    margin: auto;
+    /* height: 350px; */
+    /* background: #000; */
+  }
+  td{
+    font-size: 18px;
+    font-weight: 500;
+    color: #999;
+  }
+  tr{
+    margin-bottom: 10px;
+  }
+  span{
+    
+    background-color: #fff0da;
+    color: #FFAB2D;
+    padding: 2px 5px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
+  .note {
+            color: red;
+            font-weight: bold;
+            font-style: normal;
+            font-size: 14px;
+            /* line-height: 150%; */
+        }
     </style>
 </head>
 
@@ -92,9 +120,82 @@ $idUSer = $_SESSION['user_id'];
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card border-0 shadow-sm">
+                    <div class="card border-0 shadow-lg">
                         <div class="card-body">
-                            
+                            <?php
+                            $getDataPemesanan = mysqli_query($conn, "SELECT tb_pemesanan.nama_pemesan AS nama_pemesan,tb_pemesanan.email_pemesan AS email_pemesan,tb_pemesanan.total_bulan_sewa AS total_bulan_sewa,tb_pemesanan.nama_kost AS nama_kost,tb_pemesanan.harga_kost AS harga_kost, tb_pemesanan.tgk_dari AS tgk_dari,tb_pemesanan.tgl_hingga AS tgl_hingga,tb_pemesanan.created_at AS created_at,tb_pemesanan.sisa_bayar AS sisa_bayar, gambar_kost.photo_kost AS photo_kost FROM tb_pemesanan INNER JOIN gambar_kost ON gambar_kost.nama_kost = tb_pemesanan.nama_kost WHERE status_pemesanan='P' AND userId = '$idUSer' AND tb_pemesanan.id = '$idPemesanan' GROUP BY tb_pemesanan.nama_kost");
+                            while ($dataHistory = mysqli_fetch_array($getDataPemesanan)) {
+                                $waktuLama = strtotime($dataHistory['tgk_dari']);
+                                $currentDari = date("F d, Y", $waktuLama);
+                                $waktuHinggaLama = strtotime($dataHistory['tgl_hingga']);
+                                $currentHingga = date("F d, Y", $waktuHinggaLama);
+                            ?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="img-detail-history-wrapper">
+                                        <img src="./admin/images/imageKost/<?php echo $dataHistory['photo_kost']?>" class="circle-3 img-thumbnail" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                       <table>
+                                        <tr>
+                                            <td>Nama</td>
+                                            <td>:</td>
+                                            <td><?php echo $dataHistory['nama_pemesan'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>:</td>
+                                            <td><?php echo $dataHistory['email_pemesan'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Sewa</td>
+                                            <td>:</td>
+                                            <td><?php echo $dataHistory['total_bulan_sewa']?> bulan</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lama Sewa</td>
+                                            <td>:</td>
+                                            <td><?php echo  $currentDari ?> - <?php echo $currentHingga?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kamar</td>
+                                            <td>:</td>
+                                            <td><?php echo $dataHistory['nama_kost']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Harga Kamar</td>
+                                            <td>:</td>
+                                            <td>Rp.<?php echo number_format($dataHistory['harga_kost'], 0, ',', '.');?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Waktu Pemesanan</td>
+                                            <td>:</td>
+                                            <td><?php 
+                                            $created_old = strtotime($dataHistory['created_at']);
+                                            echo date('F d, Y', $created_old)?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status Pemesanan</td>
+                                            <td>:</td>
+                                            <td><span class="light">Menunggu Konfirmasi</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sisa Bayar</td>
+                                            <td>:</td>
+                                            <td>Rp.<?php echo number_format($dataHistory['sisa_bayar'], 0, ',', '.');?></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="note">*Note</td>
+                                            <td class="note">:</td>
+                                            <td class="note">Sisa Pembayaran Diselesaikan Saat Penyewa Sampai</td>
+                                        </tr>
+                                       </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php }?>
                         </div>
                     </div>
                 </div>

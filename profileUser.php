@@ -40,6 +40,21 @@ $idUSer = $_SESSION['user_id'];
   .my-float {
     margin-top: 10px;
   }
+  .img-profile{
+    width: 150px;
+    height: 100px;
+    /* background: #000; */
+    /* border-radius: 50%; */
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+}
+.img-profile img{
+    width: 100%;
+    object-fit: fill;
+    /* border-radius: 50%; */
+}
   </style>
 </head>
 
@@ -92,8 +107,8 @@ $idUSer = $_SESSION['user_id'];
             if ($dataPhoto && $dataPhoto['photo'] !== '') {
               // Jika terdapat data foto pada tabel user
             ?>
-              <div class="img-profile">
-                <img src="./assets/img/imageProfile/<?php echo $dataPhoto['photo'] ?>" alt="">
+              <div class=" mb-4 ">
+                <img src="./assets/img/imageProfile/<?php echo $dataPhoto['photo'] ?>" alt="" class="rounded-3 shadow-4"  style="width: 150px;" alt="Avatar">
               </div>
             <?php
             } else {
@@ -189,40 +204,7 @@ $idUSer = $_SESSION['user_id'];
     </div>
   </section>
   <!-- footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <img src="./assets/img/logo.png" alt="" />
-          <p>We Provide For Your Beautiful Holiday Instantly and memorable</p>
-        </div>
-        <div class="col-md-3">
-          <h2>For Beginer</h2>
-          <ul>
-            <li><a href="">New Account</a></li>
-            <li><a href="">Start Booking Room</a></li>
-            <li><a href="">Use Payment</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h2>For Beginer</h2>
-          <ul>
-            <li><a href="">New Account</a></li>
-            <li><a href="">Start Booking Room</a></li>
-            <li><a href="">Use Payment</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h2>For Beginer</h2>
-          <ul>
-            <li><a href="">New Account</a></li>
-            <li><a href="">Start Booking Room</a></li>
-            <li><a href="">Use Payment</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+    <?php include './include/footer.php'?>
   <!-- end footer -->
 
   <!-- script bootstrap -->

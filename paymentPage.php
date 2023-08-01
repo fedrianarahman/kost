@@ -195,7 +195,8 @@ if (!isset($_SESSION['nama'])) {
                     $idbulan = $_GET['id_pemesanan'];
                     $getBulan = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE id='$idbulan'");
                     $rBulan = mysqli_fetch_array($getBulan);
-
+                    $dataWaktu = strtotime($rBulan['expire_end']);
+                    $getDateTime = date("F d, Y H:i:s", $dataWaktu); 
                     ?>
                     <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga Kamar :Rp.</span> <?php echo number_format($rBulan['harga_kost'], 0, ',', '.')  ?>/<?php echo $rBulan['total_bulan_sewa']?> Bulan</h2>
                     <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Total Bayar: Rp.</span>
@@ -213,7 +214,9 @@ if (!isset($_SESSION['nama'])) {
                     <div class="group-product-detail">
                         <h5 class="name-product-detail">silahkan lakukan pembayaran dan upload bukti pembayaran :</h5>
                         <h5 class=" note">*Note:</h5>
+                       <h5 class="note" id="counter"></h5>
                         <h5 class="name-product-detail note-text note">Minimal Proses Pembayaran 50% dari Total Bayar: Rp. <?php echo number_format($minBayar, 0, ',', '.');?></h5>
+                        <!-- <h5 class="note">Batas Waktu Pembayaran : </h5> -->
                         <form action="./controller/booking/update.php" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="form-group bank mb-2">
@@ -295,6 +298,32 @@ if (!isset($_SESSION['nama'])) {
             this.value = formattedValue;
         });
     </script> -->
+    <script>
+          var countDownTimer = new Date("<?php echo "$getDateTime"; ?>").getTime();
+        // console.log("line 49", countDownTimer);
+        // Update the count down every 1 second
+        var interval = setInterval(function() {
+            var current = new Date().getTime();
+            // console.log("line 52", current);
+            // Find the difference between current and the count down date
+            var diff = countDownTimer - current;
+            // console.log("line 56", diff);
+            // Countdown Time calculation for days, hours, minutes and seconds
+            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            console.log("line 62", seconds);
+
+            document.getElementById("counter").innerHTML = "Batas Waktu Pembayaran : " +
+            minutes + "m " + seconds + "s ";
+            // Display Expired, if the count down is over
+            if (diff < 0) {
+                clearInterval(interval);
+                document.getElementById("counter").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
 </body>
 
 </html>
