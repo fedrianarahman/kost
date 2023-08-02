@@ -118,8 +118,8 @@ $idUSer = $_SESSION['user_id'];
           </div>
         </div>
         <div class="col-md-8">
-          <div class="card">
-            <div class="card-body">
+          <div class="card border-0 shadow-lg">
+            <div class="card-body ">
               <?php
               $getKost = mysqli_query($conn, "SELECT * FROM tb_pemesanan LEFT JOIN kost ON kost.nama = tb_pemesanan.nama_kost INNER JOIN gambar_kost ON gambar_kost.nama_kost = tb_pemesanan.nama_kost WHERE tb_pemesanan.userId = '$idUSer' AND tb_pemesanan.status_pemesanan = 'A' GROUP BY kost.nama");
               while ($dataKost = mysqli_fetch_array($getKost)) {          
@@ -139,7 +139,6 @@ $idUSer = $_SESSION['user_id'];
                   <div class="my-kost-content">
                     <h2><?php echo $dataKost['nama']?></h2>
                     <p>Tanggal Sewa : <?php echo $realTglDari?> hingga <?php echo $realHingga?></p>
-
                   </div>
                 </div>
               </div>

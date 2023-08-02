@@ -2,7 +2,7 @@
 
 
 session_start();
-$_SESSION = [];
+$_SESSION = ['id_role'];
 session_unset();
 session_destroy();
 

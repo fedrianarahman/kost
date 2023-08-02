@@ -6,7 +6,7 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $cekDataUser = mysqli_query($conn, "SELECT user.id AS id_user, user.nama AS nama_user, user.email AS email_user, user.no_telpon AS no_hp_user, user.photo AS photo_user, user.username AS username_user, user.password AS password_user,user.created_at AS created_at ,role.nama_role AS role_user FROM user INNER JOIN role ON role.id = user.role_id WHERE user.role_id != 3");
+    $cekDataUser = mysqli_query($conn, "SELECT user.id AS id_user, user.nama AS nama_user, user.email AS email_user, user.no_telpon AS no_hp_user, user.photo AS photo_user, user.username AS username_user, user.password AS password_user,user.created_at AS created_at ,role.nama_role AS role_user,role.id AS id_role FROM user INNER JOIN role ON role.id = user.role_id WHERE user.role_id != 3");
 
     $loggedIn = false; // Flag untuk menandakan status login
 
@@ -22,6 +22,7 @@ if (isset($_POST['login'])) {
 			$_SESSION['password'] = $result['password_user'];
 			$_SESSION['photo'] = $result['photo_user'];
 			$_SESSION['joined_at'] = $result['created_at'];
+            $_SESSION['id_role'] = $result['id_role'];
             break; // Keluar dari loop jika data ditemukan
         }
     }
