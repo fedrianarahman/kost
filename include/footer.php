@@ -17,11 +17,11 @@
                   <h2>Beginer</h2>
                   <ul>
                     <li><a href="./auth/login.php">Sign in</a></li>
-                    <li><a href="./auth/regist.php">New Account</a></li>
+                    <li><a href="./auth/regist.php">Registrasi</a></li>
                   </ul>
                 </div>
                 <div class="col-md-3">
-                  <h2>Support</h2>
+                  <h2>Bantuan</h2>
                   <ul>
                     <li><a href="https://api.whatsapp.com/send?phone=085864931764" target="_blank">WhatsApp</a></li>
                   </ul>

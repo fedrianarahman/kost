@@ -9,8 +9,8 @@ $fasilitas = $_POST['fasilitas_id'];
 $jumlahFasilitas= $_POST['jumlah_fasilitas'];
 $created_at = date('Y-m-d H:i:s');
 $status = "Y";
-$latitude = $_POST['latitude'];
-$longitude = $_POST['longitude'];
+$latitude = "-6.8888033";
+$longitude = "107.6197685";
 // mengecek data Kamar
 $cek = mysqli_query($conn, "SELECT * FROM kost WHERE nama = '$nama_kost'");
 $r = mysqli_fetch_array($cek);

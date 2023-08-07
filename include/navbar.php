@@ -40,7 +40,7 @@ print_r($route)
 										# code...
 										echo '';
 									}
-									?>" href="about.php">About</a>
+									?>" href="about.php">Tentang</a>
             </li>
             <li class="nav-item">
               <a class="nav-link <?php if ($route==='room.php') {
@@ -50,7 +50,7 @@ print_r($route)
 										# code...
 										echo '';
 									}
-									?>" href="room.php">Room</a>
+									?>" href="room.php">Kamar Kost</a>
             </li>
             <li class="nav-item">
               <a class="nav-link <?php if ($route==='contact.php') {
@@ -60,7 +60,7 @@ print_r($route)
 										# code...
 										echo '';
 									}
-									?>" href="contact.php">Contact</a>
+									?>" href="contact.php">Kontak </a>
             </li>
             <li class="nav-item">
             </li>

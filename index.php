@@ -137,7 +137,7 @@ if (!isset($_SESSION['nama'])) {
         <div class="col-md-6">
           <h1> Nikmati Tinggal di Kost dengan Fasilitas Terbaik</h1>
           <p>Kosan bu ida adalah kosan yang berada di kota bandung tepatnya di jalan sekeloa tengah. Kosan yang tidak jauh dari monument perjuangan rakyat sekitar 530 meter dari kosan, 1,5 km ke gedung sate, berjarak 90 meter dari indomart sekeloa dan banyak jajanan bandung di sekitaran kosan.</p>
-          <a href="./room.php" class="btn  btn-custom">Show Me Now</a>
+          <a href="./room.php" class="btn  btn-custom">Lihat Kamar</a>
           <!-- <div class="hero-icon">
                             <div class="hero-icon-item">
                                 <img src="./assets/img/icon/ic-traveller.svg" alt="">
@@ -247,35 +247,60 @@ if (!isset($_SESSION['nama'])) {
       <div class="row">
         <div class="col-md-6">
           <div class="row">
-            <?php
-            $getDataKost = mysqli_query($conn, "SELECT * FROM kost INNER JOIN fasilitas ON fasilitas.id = kost.fasilitas INNER JOIN gambar_kost ON gambar_kost.nama_kost  = kost.nama GROUP BY kost.nama");
-            while ($dataKost = mysqli_fetch_array($getDataKost)) {
-
-            ?>
-              <div class="col-md-6">
-                <a href="./detailRoom.php?nama_kost=<?php echo $dataKost['nama'] ?>&harga_kost=<?php echo $dataKost['harga'] ?>" class="text-room">
-                  <div class="room-with-beauty-backyeard-image">
-                    <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost'] ?>" alt="" srcset="">
-                    <span class="diskon">New Arrival</span>
-                    <p class="room-with-beauty-backyeard-title"><?php echo $dataKost['nama'] ?></p>
-                    <p class="room-with-beauty-backyeard-title" style="font-size: 13px;">read more...</p>
-                    <p class="room-with-beauty-backyeard-location badge badge-success">
-                      <span class=" <?php if ($dataKost['status'] == 'Y') {
-                                      echo 'badge light badge-custom-success';
-                                    } else {
-                                      echo 'badge light badge-custom-warning';
-                                    }
-                                    ?>"><?php if ($dataKost['status'] == 'Y') {
-                                          echo 'kosong';
-                                        } else {
-                                          echo 'Penuh';
-                                        }
-                                        ?></span>
-                    </p>
-                  </div>
-                </a>
-              </div>
-            <?php } ?>
+          <?php
+                $getDataKost = mysqli_query($conn, "SELECT * FROM kost INNER JOIN fasilitas ON fasilitas.id = kost.fasilitas INNER JOIN gambar_kost ON gambar_kost.nama_kost  = kost.nama GROUP BY kost.nama");
+                while ($dataKost = mysqli_fetch_array($getDataKost)) {
+                 
+                ?>
+               <?php
+               if ($dataKost['status']=='Y') {
+               ?> 
+                <div class="col-md-5">
+                  <a href="./detailRoom.php?nama_kost=<?php echo $dataKost['nama']?>&harga_kost=<?php echo $dataKost['harga']?>" class="text-room">
+                    <div class="room-with-beauty-backyeard-image">
+                      <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost']?>" alt="" srcset="">
+                      <!-- <span class="diskon">New Arrival</span> -->
+                      <p class="room-with-beauty-backyeard-title"><?php echo $dataKost['nama']?></p>
+                      <p class="room-with-beauty-backyeard-location badge badge-success">
+                        <span class=" <?php if ($dataKost['status']=='Y') {
+                          echo 'badge light badge-custom-success';
+                        } else {
+                          echo 'badge light badge-custom-warning';
+                        }
+                         ?>"><?php if ($dataKost['status']=='Y') {
+                          echo 'kosong';
+                        } else {
+                          echo 'Penuh';
+                        }
+                         ?></span></p>
+                    </div>
+                  </a>
+                </div>
+               <?php } else {
+               ?>
+                <div class="col-md-6">
+                 <span>
+                 <div class="room-with-beauty-backyeard-image">
+                      <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost']?>" alt="" srcset="">
+                      <span class="diskon">New Arrival</span>
+                      <p class="room-with-beauty-backyeard-title"><?php echo $dataKost['nama']?></p>
+                      <p class="room-with-beauty-backyeard-location badge badge-success">
+                        <span class=" <?php if ($dataKost['status']=='Y') {
+                          echo 'badge light badge-custom-success';
+                        } else {
+                          echo 'badge light badge-custom-warning';
+                        }
+                         ?>"><?php if ($dataKost['status']=='Y') {
+                          echo 'kosong';
+                        } else {
+                          echo 'Penuh';
+                        }
+                         ?></span></p>
+                    </div>
+                 </span>
+                </div>
+               <?php }?>
+               <?php }?>
           </div>
         </div>
         <div class="col-md-6">

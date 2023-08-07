@@ -115,7 +115,7 @@ if (!isset($_SESSION['nama'])) {
         <div class="container">
             <div class="row mb-3">
                 <div class="col-md-12 text-center">
-                    <h1 class="header-order-step">Success Booking</h1>
+                    <h1 class="header-order-step">Success </h1>
                 </div>
             </div>
            <div class="row">
@@ -125,7 +125,7 @@ if (!isset($_SESSION['nama'])) {
                         <img src="./assets/img/order-success.png" class="image-cs-success" width="400" alt="">
                         <h1 class="popup-title-h1 mb-2">Selamat Pemesanan Berhasil</h1>
                         <p class="paraf-description-p mb-2">Termakasih Telah melakukan Pemesanan, Tunggu Pihak Kami Akan Menghubungi Anda</p>
-                        <a href="./profileUser.php">
+                        <a href="./myHistory.php">
                         <button class="btn btn-cs-order">oke</button>
                         </a>
                     </div>

@@ -35,8 +35,8 @@ $idUSer = $_SESSION['user_id'];
     <section class="detail-room">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="./room.php">Room</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Detail Room</li>
+          <li class="breadcrumb-item"><a href="./room.php">Kamar</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Detail Kamar</li>
         </ol>
       </nav>
       <div class="detail-room-title">
@@ -45,7 +45,7 @@ $idUSer = $_SESSION['user_id'];
         while ($dataNama = mysqli_fetch_array($getNamaRoom)) {
 
         ?>
-          <h1>Room <?php echo $dataNama['nama'] ?></h1>
+          <h1> <?php echo $dataNama['nama'] ?></h1>
         <?php } ?>
         <!-- <span>Bogor, Indonesia</span> -->
       </div>
@@ -59,7 +59,7 @@ $idUSer = $_SESSION['user_id'];
               
               ?>
               <div class="carousel-item active">
-                <img src="./admin/images/imageKost/<?php echo $dataGambar['photo_kost']?>" class="d-block w-100" alt="...">
+                <img style="object-fit: fill;" src="./admin/images/imageKost/<?php echo $dataGambar['photo_kost']?>" class="d-block w-100" alt="...">
               </div>
               <?php }?>
             </div>
@@ -78,15 +78,15 @@ $idUSer = $_SESSION['user_id'];
       <div class="row">
         <div class="col-md-6">
           <div class="detail-room-desc">
-            <h2>About the place</h2>
+            <h2>Tentang Kamar</h2>
             <?php
             $getTentangRoom = mysqli_query($conn, "SELECT * FROM kost WHERE nama = '$nama_kost' GROUP BY kost.nama");
             while ($dataTentang = mysqli_fetch_array($getTentangRoom)) {
             ?>
               <p><?php echo $dataTentang['tentang_kost'] ?></p>
             <?php } ?>
-            <h2>*Fasilitas</h2>
-            <div class="fasilitas">
+            <!-- <h2>*Fasilitas</h2> -->
+            <div class="fasilitas" style="display: none;">
 
               <?php
               $getDataFasilitas = mysqli_query($conn, "SELECT * FROM kost INNER JOIN fasilitas ON fasilitas.id = kost.fasilitas WHERE kost.nama = '$nama_kost'");
@@ -104,12 +104,12 @@ $idUSer = $_SESSION['user_id'];
         <div class="col-md-6 ">
           <div class="start-booking">
             <div class="start-booking-box">
-              <h3>start Booking</h3>
+              <h3>Harga Kamar</h3>
               <div class="start-booking-text">
-                <span class="active">Rp <?php echo number_format($harga_kost, 0, ',', '.') ?></span>/month
+                <span class="active">Rp <?php echo number_format($harga_kost, 0, ',', '.') ?></span>/bulan
               </div>
-             
-                 <a class="btn-contact-now btn" href="./bookingPage.php?nama_kost=<?php echo $nama_kost?>&harga_kost=<?php echo $harga_kost?>">Book Now</a>
+                
+                 <a class="btn-contact-now btn" href="./bookingPage.php?nama_kost=<?php echo $nama_kost?>&harga_kost=<?php echo $harga_kost?>">Pesan Sekarang</a>
               
             </div>
           </div>

@@ -77,6 +77,23 @@ $idPemesanan = $_GET['id_pemesanan'];
             font-size: 14px;
             /* line-height: 150%; */
         }
+        .badge-custom {
+    background-color: #ecfae4;
+    color: #68CF29;
+    padding: 3px 10px;
+  }
+
+  .badge-custom-proses {
+    background-color: #ffefee;
+    color: #FF4C41;
+    padding: 7px 10px;
+  }
+
+  .badge-custom-done {
+    background-color: #fff0da;
+    color: #FFAB2D;
+    padding: 3px 10px;
+  }
     </style>
 </head>
 
@@ -123,14 +140,14 @@ $idPemesanan = $_GET['id_pemesanan'];
                     <div class="card border-0 shadow-lg">
                         <div class="card-body">
                             <?php
-                            $getDataPemesanan = mysqli_query($conn, "SELECT tb_pemesanan.nama_pemesan AS nama_pemesan,tb_pemesanan.email_pemesan AS email_pemesan,tb_pemesanan.total_bulan_sewa AS total_bulan_sewa,tb_pemesanan.nama_kost AS nama_kost,tb_pemesanan.harga_kost AS harga_kost, tb_pemesanan.tgk_dari AS tgk_dari,tb_pemesanan.tgl_hingga AS tgl_hingga,tb_pemesanan.created_at AS created_at,tb_pemesanan.sisa_bayar AS sisa_bayar, gambar_kost.photo_kost AS photo_kost FROM tb_pemesanan INNER JOIN gambar_kost ON gambar_kost.nama_kost = tb_pemesanan.nama_kost WHERE status_pemesanan='P' AND userId = '$idUSer' AND tb_pemesanan.id = '$idPemesanan' GROUP BY tb_pemesanan.nama_kost");
+                            $getDataPemesanan = mysqli_query($conn, "SELECT tb_pemesanan.nama_pemesan AS nama_pemesan,tb_pemesanan.email_pemesan AS email_pemesan,tb_pemesanan.total_bulan_sewa AS total_bulan_sewa,tb_pemesanan.nama_kost AS nama_kost,tb_pemesanan.harga_kost AS harga_kost, tb_pemesanan.jumlah AS jumlah,tb_pemesanan.status_pembayaran AS status_pembayaran,tb_pemesanan.status_pemesanan AS status_pemesanan,tb_pemesanan.tgk_dari AS tgk_dari,tb_pemesanan.tgl_hingga AS tgl_hingga,tb_pemesanan.created_at AS created_at,tb_pemesanan.sisa_bayar AS sisa_bayar, gambar_kost.photo_kost AS photo_kost FROM tb_pemesanan INNER JOIN gambar_kost ON gambar_kost.nama_kost = tb_pemesanan.nama_kost WHERE  userId = '$idUSer' AND tb_pemesanan.id = '$idPemesanan' GROUP BY tb_pemesanan.nama_kost");
                             while ($dataHistory = mysqli_fetch_array($getDataPemesanan)) {
                                 $waktuLama = strtotime($dataHistory['tgk_dari']);
-                                $currentDari = date("F d, Y", $waktuLama);
+                                $currentDari = date("d F  Y", $waktuLama);
                                 $waktuHinggaLama = strtotime($dataHistory['tgl_hingga']);
-                                $currentHingga = date("F d, Y", $waktuHinggaLama);
+                                $currentHingga = date(" d F  Y", $waktuHinggaLama);
                             ?>
-                            <div class="row">
+                            <div class="row mb-4">
                                 <div class="col-md-6">
                                     <div class="img-detail-history-wrapper">
                                         <img src="./admin/images/imageKost/<?php echo $dataHistory['photo_kost']?>" class="circle-3 img-thumbnail" alt="">
@@ -179,23 +196,54 @@ $idPemesanan = $_GET['id_pemesanan'];
                                         <tr>
                                             <td>Status Pemesanan</td>
                                             <td>:</td>
-                                            <td><span class="light">Menunggu Konfirmasi</span></td>
+                                            <td><?php if ($dataHistory['status_pemesanan']== 'P') {
+                                                echo '<span class="light">Menunggu Konfirmasi</span>';
+                                            } elseif($dataHistory['status_pemesanan']== 'B'){
+                                                echo '<span class="badge badge-custom-proses">Pemesanan Dibatalkan</span>';
+                                            }elseif($dataHistory['status_pemesanan'=='A']){
+                                               echo '<span class=" badge badge-custom">Pemesanan Terkonfirmasi</span>';
+                                            }?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status Pembayaran</td>
+                                            <td>:</td>
+                                            <td><?php if ($dataHistory['status_pembayaran']=='L') {
+                                                echo '<span class="badge badge-custom">Lunas</span>';
+                                            } else {
+                                                echo '<span class="light">Belum Lunas</span>';
+                                            }
+                                              ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Uang Yang Sudah dibayarkan</td>
+                                            <td>:</td>
+                                            <td>Rp.<?php echo number_format($dataHistory['jumlah'], 0, ',', '.');?></td>
                                         </tr>
                                         <tr>
                                             <td>Sisa Bayar</td>
                                             <td>:</td>
                                             <td>Rp.<?php echo number_format($dataHistory['sisa_bayar'], 0, ',', '.');?></td>
                                         </tr>
-                                        <tr>
+                                        <?php
+                                        if ($dataHistory['status_pembayaran']== 'D') {
+                                       ?>    
+                                       <tr>
                                             <td class="note">*Note</td>
                                             <td class="note">:</td>
-                                            <td class="note">Sisa Pembayaran Diselesaikan Saat Penyewa Sampai</td>
-                                        </tr>
+                                            <td class="note">Sisa Pembayaran Diselesaikan Sebelum Tanggal <?php echo $currentHingga ?></td>
+                                        </tr> 
+                                        <?php }
+                                        ?>
                                        </table>
                                     </div>
                                 </div>
                             </div>
                             <?php }?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="btn btn-cs-order" href="./myHistory.php">Kembali</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -207,7 +255,9 @@ $idPemesanan = $_GET['id_pemesanan'];
     include './include/footer.php';
     ?>
     <!-- end footer -->
-
+    <script>
+        // window.print();
+    </script>
     <!-- script bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <!-- script fontawesome -->

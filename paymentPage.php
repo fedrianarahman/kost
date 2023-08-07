@@ -140,7 +140,7 @@ if (!isset($_SESSION['nama'])) {
         <div class="container">
             <div class="row mb-5">
                 <div class="col-md-12 text-center">
-                    <h1 class="header-order-step">Payment Page</h1>
+                    <h1 class="header-order-step">Halaman Pemabyaran</h1>
                 </div>
 
                 <?php
@@ -213,7 +213,7 @@ if (!isset($_SESSION['nama'])) {
                         ?></h2>
                     <div class="group-product-detail">
                         <h5 class="name-product-detail">silahkan lakukan pembayaran dan upload bukti pembayaran :</h5>
-                        <h5 class=" note">*Note:</h5>
+                        <h5 class="note">*Note:</h5>
                        <h5 class="note" id="counter"></h5>
                         <h5 class="name-product-detail note-text note">Minimal Proses Pembayaran 50% dari Total Bayar: Rp. <?php echo number_format($minBayar, 0, ',', '.');?></h5>
                         <!-- <h5 class="note">Batas Waktu Pembayaran : </h5> -->

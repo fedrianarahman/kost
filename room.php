@@ -59,7 +59,7 @@ include './controller/conn.php';
 
             <!-- room with beautiful yeard -->
             <section class="room-with-beauty-backyeard">
-              <h2>Kost Room </h2>
+              <h2>Kamar Kost </h2>
               <!-- <div class="row">
                 <?php
                 $getDataKost = mysqli_query($conn, "SELECT * FROM kost INNER JOIN fasilitas ON fasilitas.id = kost.fasilitas INNER JOIN gambar_kost ON gambar_kost.nama_kost  = kost.nama GROUP BY kost.nama");
@@ -131,7 +131,7 @@ include './controller/conn.php';
                   <a href="./detailRoom.php?nama_kost=<?php echo $dataKost['nama']?>&harga_kost=<?php echo $dataKost['harga']?>" class="text-room">
                     <div class="room-with-beauty-backyeard-image">
                       <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost']?>" alt="" srcset="">
-                      <span class="diskon">New Arrival</span>
+                      <!-- <span class="diskon">New Arrival</span> -->
                       <p class="room-with-beauty-backyeard-title"><?php echo $dataKost['nama']?></p>
                       <p class="room-with-beauty-backyeard-location badge badge-success">
                         <span class=" <?php if ($dataKost['status']=='Y') {
@@ -154,7 +154,7 @@ include './controller/conn.php';
                  <span>
                  <div class="room-with-beauty-backyeard-image">
                       <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost']?>" alt="" srcset="">
-                      <span class="diskon">New Arrival</span>
+                      <!-- <span class="diskon">New Arrival</span> -->
                       <p class="room-with-beauty-backyeard-title"><?php echo $dataKost['nama']?></p>
                       <p class="room-with-beauty-backyeard-location badge badge-success">
                         <span class=" <?php if ($dataKost['status']=='Y') {

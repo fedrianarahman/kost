@@ -129,12 +129,11 @@ $idUSer = $_SESSION['user_id'];
 </head>
 <?php
 // mengecek apakah ada pemesanan yang tertunda?
-$getDataPemesanan = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE userId = '$idUSer' AND status_pemesanan = 'W'");
-$rDataPemesanan = mysqli_fetch_row($getDataPemesanan);
-if ($rDataPemesanan > 0) {
-    $_SESSION['status-fail'] = "Anda Memilik Transaksi Yang Belum Selesai Atau Silahkan Batalkan Transaksi";
-    header("Location:myHistory.php");
-} else { ?>
+$getDataPemesanan = mysqli_query($conn, "SELECT * FROM user WHERE id = '$idUSer'");
+$rDataPemesanan = mysqli_fetch_array($getDataPemesanan);
+if ($rDataPemesanan['photo_ktp']) {
+    
+?>
 <body>
     <!-- navigasi -->
     <?php include './include/navbar.php' ?>
@@ -176,7 +175,7 @@ if ($rDataPemesanan > 0) {
         <div class="container">
             <div class="row mb-5">
                 <div class="col-md-12 text-center">
-                    <h1 class="header-order-step">Order Room</h1>
+                    <h1 class="header-order-step">Pesan Kamar</h1>
                 </div>
             </div>
             <div class="row">
@@ -189,7 +188,7 @@ if ($rDataPemesanan > 0) {
                     <?php } ?>
                 </div>
                 <div class="col-md-8 mb-3">
-                    <h1 class="name-fish-detail"> Room <?php echo $nama_kost ?></h1>
+                    <h1 class="name-fish-detail"> Kamar <?php echo $nama_kost ?></h1>
                     <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga : <?php echo number_format($harga_kost, 0, ',', '.') ?></h2>
                     <div class="group-product-detail">
                         <h5 class="name-product-detail">Silahkan Pilih Tanggal : </h5>
@@ -222,7 +221,7 @@ if ($rDataPemesanan > 0) {
                             <div class="row">
                                 <div class="col-md-12">
                                     <a class="btn btn-cs-order" href="./detailRoom.php?nama_kost=<?php echo $nama_kost ?>&harga_kost=<?php echo $harga_kost ?>">Cancel</a>
-                                    <button class="btn btn-custom float-end" type="submit">Continue</button>
+                                    <button class="btn btn-custom float-end" type="submit">Selanjutnya</button>
                                 </div>
                             </div>
                         </form>
@@ -290,7 +289,10 @@ if ($rDataPemesanan > 0) {
     </script>
 
 </body>
-<?php } ?>
+<?php } else{
+        $_SESSION['status-fail'] = "Identitas Anda Belum Lengkap !, Silahkan Lengkapi Terlebih Dahulu";
+        header("Location:profileUser.php");
+}?>
 
 
 
