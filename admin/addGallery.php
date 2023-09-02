@@ -102,7 +102,7 @@ if (!isset($_SESSION['nama'])) {
                                         </div>
                                         <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>judul gallery kost</label>
+                                            <label>Deskripsi gallery kost</label>
                                             <input type="text" class="form-control input-default " placeholder="Judul" name="judul" >
                                         </div>
                                         </div>

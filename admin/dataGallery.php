@@ -122,7 +122,7 @@ if (!isset($_SESSION['nama'])) {
                                             <tr>
                                                 <th>#</th>
                                                 <th>Photo</th>
-                                                <th>Judul</th>
+                                                <th>Deskripsi</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

@@ -112,7 +112,8 @@ if (!isset($_SESSION['nama'])) {
             width: 100%;
 
         }
-        .note-text{
+
+        .note-text {
             font-style: normal;
             font-weight: 400;
             font-size: 14px;
@@ -140,7 +141,7 @@ if (!isset($_SESSION['nama'])) {
         <div class="container">
             <div class="row mb-5">
                 <div class="col-md-12 text-center">
-                    <h1 class="header-order-step">Halaman Pemabyaran</h1>
+                    <h1 class="header-order-step">Halaman Pembayaran</h1>
                 </div>
 
                 <?php
@@ -196,17 +197,17 @@ if (!isset($_SESSION['nama'])) {
                     $getBulan = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE id='$idbulan'");
                     $rBulan = mysqli_fetch_array($getBulan);
                     $dataWaktu = strtotime($rBulan['expire_end']);
-                    $getDateTime = date("F d, Y H:i:s", $dataWaktu); 
+                    $getDateTime = date("F d, Y H:i:s", $dataWaktu);
                     ?>
-                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga Kamar :Rp.</span> <?php echo number_format($rBulan['harga_kost'], 0, ',', '.')  ?>/<?php echo $rBulan['total_bulan_sewa']?> Bulan</h2>
+                    <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Harga Kamar :Rp.</span> <?php echo number_format($rBulan['harga_kost'], 0, ',', '.')  ?>/<?php echo $rBulan['total_bulan_sewa'] ?> Bulan</h2>
                     <h2 class="price-fish-detail"><span class="price-fish-cs-rp">Total Bayar: Rp.</span>
                         <?php
-                         $currentHarga =  $rBulan['harga_kost'] * $rBulan['total_bulan_sewa'];
-                         echo number_format($currentHarga, 0, ',', '.');
+                        $currentHarga =  $rBulan['harga_kost'] * $rBulan['total_bulan_sewa'];
+                        echo number_format($currentHarga, 0, ',', '.');
                         // Menghitung harga setelah diskon
                         // $diskon = 10; // Persentase diskon (10%)
                         // $hargaSetelahDiskon = $harga - ($harga * $diskon / 100);
-                        
+
                         // echo number_format($hargaSetelahDiskon, 0, ',', '.');
                         $diskon = 50 / 100; // Persentase diskon (50%)
                         $minBayar = $currentHarga * (1 - $diskon);
@@ -214,14 +215,22 @@ if (!isset($_SESSION['nama'])) {
                     <div class="group-product-detail">
                         <h5 class="name-product-detail">silahkan lakukan pembayaran dan upload bukti pembayaran :</h5>
                         <h5 class="note">*Note:</h5>
-                       <h5 class="note" id="counter"></h5>
-                        <h5 class="name-product-detail note-text note">Minimal Proses Pembayaran 50% dari Total Bayar: Rp. <?php echo number_format($minBayar, 0, ',', '.');?></h5>
+                        <h5 class="note" id="counter"></h5>
+                        <h5 class="name-product-detail note-text note">Minimal Proses Pembayaran 50% dari Total Bayar: Rp. <?php echo number_format($minBayar, 0, ',', '.'); ?></h5>
                         <!-- <h5 class="note">Batas Waktu Pembayaran : </h5> -->
                         <form action="./controller/booking/update.php" method="POST" enctype="multipart/form-data">
                             <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">DP</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">Lunas</label>
+                                </div>
                                 <div class="form-group bank mb-2">
                                     <label for="" class="mb-2">Akun Tujuan</label>
-                                    <select name="akun_tujuan" id="" class="form-select">
+                                    <select name="akun_tujuan" id="" class="form-select" required>
                                         <option value="">Pilih</option>
                                         <?php
                                         $getAkunBank = mysqli_query($conn, "SELECT * FROM bank");
@@ -235,22 +244,22 @@ if (!isset($_SESSION['nama'])) {
                                 </div>
                                 <div class="form-group bank mb-2">
                                     <label for="" class="mb-2">Bukti Transfer</label>
-                                    <input type="file" name="photo" class="form-control" id="">
+                                    <input type="file" name="photo" class="form-control" required id="">
                                 </div>
                                 <div class="form-group bank mb-2">
                                     <label for="" class="mb-2">Asal Bank</label>
-                                    <input type="text" name="asal_bank" class="form-control" id="">
+                                    <input type="text" name="asal_bank" class="form-control" id="" required>
                                     <input hidden type="text" name="id_pemesanan" class="form-control" id="" value="<?php echo $rBulan['id'] ?>">
                                 </div>
                                 <div class="form-group bank mb-2">
                                     <label for="currency-field" class="mb-2">Jumlah</label>
-                                    <input type="number" name="jumlah_tf" class="form-control CurrencyInput">
-                                    <input type="text" hidden  name="jumlah_bayar" class="form-control CurrencyInput" value="<?php echo $rBulan['harga_kost']?>">
+                                    <input require type="number" name="jumlah_tf" class="form-control CurrencyInput">
+                                    <input type="text" hidden name="jumlah_bayar" class="form-control CurrencyInput" value="<?php echo $rBulan['harga_kost'] ?>">
 
                                 </div>
                                 <div class="form-group bank mb-2">
                                     <label for="" class="mb-2">Nama Pengirim</label>
-                                    <input type="text" name="nama_pengirim" class="form-control" id="">
+                                    <input type="text" name="nama_pengirim" class="form-control" id="" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -278,28 +287,8 @@ if (!isset($_SESSION['nama'])) {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-    <!-- <script>
-        $('input.CurrencyInput').on('blur', function() {
-  const value = this.value.replace(/,/g, '');
-  this.value = parseFloat(value).toLocaleString('en-US', {
-    style: 'decimal',
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2
-  });
-});
-    </script> -->
-    <!-- <script>
-        $('input.CurrencyInput').on('blur', function() {
-            const value = this.value.replace(/,/g, '');
-            const formattedValue = parseFloat(value).toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'IDR'
-            });
-            this.value = formattedValue;
-        });
-    </script> -->
     <script>
-          var countDownTimer = new Date("<?php echo "$getDateTime"; ?>").getTime();
+        var countDownTimer = new Date("<?php echo "$getDateTime"; ?>").getTime();
         // console.log("line 49", countDownTimer);
         // Update the count down every 1 second
         var interval = setInterval(function() {
@@ -316,7 +305,7 @@ if (!isset($_SESSION['nama'])) {
             console.log("line 62", seconds);
 
             document.getElementById("counter").innerHTML = "Batas Waktu Pembayaran : " +
-            minutes + "m " + seconds + "s ";
+                minutes + "m " + seconds + "s ";
             // Display Expired, if the count down is over
             if (diff < 0) {
                 clearInterval(interval);

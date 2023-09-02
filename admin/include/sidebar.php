@@ -57,6 +57,17 @@
 							<!-- <li><a href="dataRole.php">Data Penghuni</a></li> -->
                         </ul>
                     </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+						<i class="fa fa-book"></i>
+							<span class="nav-text">Archive</span>
+						</a>
+                        <ul aria-expanded="false">
+							
+							<li><a href="dataPemesananSelesai.php">Data Pemesanan Selesai</a></li>
+							<li><a href="dataPenyewaSelesai.php">Data Penghuni Kost</a></li>
+							<!-- <li><a href="dataRole.php">Data Penghuni</a></li> -->
+                        </ul>
+                    </li>
                 </ul>
 			</div>
         </div>

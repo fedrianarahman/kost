@@ -124,6 +124,7 @@ if (!isset($_SESSION['nama'])) {
                                                 <th>Nama Pemesan</th>
                                                 <th>Nama Kamar</th>
                                                 <th>Status Pemesanan</th>
+                                                <th>Status Pembayaran</th>
                                                 <th>Tanggal Pemesanan</th>
                                                 <th>Action</th>
                                             </tr>
@@ -131,7 +132,7 @@ if (!isset($_SESSION['nama'])) {
                                         <tbody>
                                             <?php
                                             // get data
-                                            $getPemesanan = mysqli_query($conn, "SELECT * FROM tb_pemesanan ORDER BY tb_pemesanan.id ASC
+                                            $getPemesanan = mysqli_query($conn, "SELECT * FROM tb_pemesanan  ORDER BY tb_pemesanan.id ASC
                                             ");
                                             $i = 1;
                                             while ($dataPemesanan = mysqli_fetch_array($getPemesanan)) {
@@ -148,8 +149,20 @@ if (!isset($_SESSION['nama'])) {
                                                         echo '<span class="badge light badge-success">Accepted</span>';
                                                 } elseif($dataPemesanan['status_pemesanan'] == 'P') {
                                                         echo '<a href="#" class="badge light badge-warning"><span>Pending</span></a>';
+                                                    }elseif($dataPemesanan['status_pemesanan'] == 'R') {
+                                                        echo '<a href="#" class="badge light badge-danger"><span>Rejected</span></a>';
                                                     }else{
                                                         echo '<a href="#" class="badge light badge-danger"><span>Expire</span></a>';
+                                                    }
+                                                    
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    if ($dataPemesanan['status_pembayaran'] == 'L') {
+                                                        echo '<span class="badge light badge-success">Lunas</span>';
+                                                }else{
+                                                        echo '<a href="#" class="badge light badge-danger"><span>Belum Lunas</span></a>';
                                                     }
                                                     
                                                     ?>
@@ -159,7 +172,10 @@ if (!isset($_SESSION['nama'])) {
 													<div class="d-flex">
 														<a href="./detailPemesanan.php?id_pemesanan=<?php echo $dataPemesanan['id']?>&nama_kost=<?php echo $dataPemesanan['nama_kost']?>" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fa fa-eye" data-toggle="tooltip" title="Detail"></i></a>
                                                         
-														<a href="./controller/pemesanan/delete.php?id_pemesanan=<?php echo $dataPemesanan['id']?>&nama_kost=<?php echo $dataPemesanan['nama_kost']?>" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+														<?php if ($dataPemesanan['status_pemesanan']!='A') {
+                                                           ?>
+                                                           <a href="./controller/pemesanan/delete.php?id_pemesanan=<?php echo $dataPemesanan['id']?>&nama_kost=<?php echo $dataPemesanan['nama_kost']?>" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                           <?php }?>
 													</div>												
 												</td>												
                                             </tr>

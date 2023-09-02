@@ -1,16 +1,36 @@
+
 <?php
-session_start();
-include '../conn.php';
+// Gantilah ini dengan informasi koneksi database Anda
+$host = 'localhost'; // Host database
+$username = 'root'; // Nama pengguna database
+$password = ''; // Kata sandi database
+$database = 'kostan'; // Nama database
 
-$idPemesanan = $_GET['id_pemesanan'];
+// Membuat koneksi
+$mysqli = new mysqli($host, $username, $password, $database);
 
-$updatePemesanan = mysqli_query($conn, "UPDATE  tb_pemesanan SET status_pemesanan = 'B' WHERE id = '$idPemesanan'");
-
-if ($updatePemesanan) {
-    $_SESSION['status-info'] = "Pesanan Berhasil Dibatalkan";
-} else {
-    $_SESSION['status-fail'] = "Pesanan Tidak Berhasil Dibatalkan";
+// Memeriksa koneksi
+if ($mysqli->connect_error) {
+    die('Koneksi ke database gagal: ' . $mysqli->connect_error);
 }
 
-header("Location:../../myHistory.php");
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Ambil ID yang dikirim dari JavaScript
+    $id = $_POST['id'];
+
+    // Lakukan operasi penghapusan berdasarkan ID
+    $query = "UPDATE  tb_pemesanan SET status_pemesanan = 'B', status_pembayaran='B' WHERE id = '$id'";
+    $stmt = $mysqli->prepare($query);
+    if ($stmt->execute()) {
+        echo 'sukses';
+    } else {
+        echo 'gagal';
+    }
+}
 ?>
+
+
+
+
+
+

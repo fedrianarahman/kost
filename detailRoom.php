@@ -4,7 +4,6 @@ include './controller/conn.php';
 
 $nama_kost = $_GET['nama_kost'];
 $harga_kost = $_GET['harga_kost'];
-$idUSer = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +18,11 @@ $idUSer = $_SESSION['user_id'];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- link css -->
   <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    .dp{
+      color: #FEB500;
+    }
+  </style>
 </head>
 
 <body>
@@ -56,12 +60,12 @@ $idUSer = $_SESSION['user_id'];
               <?php
               $getDataGambar = mysqli_query($conn, "SELECT * FROM gambar_kost WHERE nama_kost = '$nama_kost' ");
               while ($dataGambar = mysqli_fetch_array($getDataGambar)) {
-              
+
               ?>
-              <div class="carousel-item active">
-                <img style="object-fit: fill;" src="./admin/images/imageKost/<?php echo $dataGambar['photo_kost']?>" class="d-block w-100" alt="...">
-              </div>
-              <?php }?>
+                <div class="carousel-item active">
+                  <img style="object-fit: fill;" src="./admin/images/imageKost/<?php echo $dataGambar['photo_kost'] ?>" class="d-block w-100" alt="...">
+                </div>
+              <?php } ?>
             </div>
           </div>
 
@@ -99,6 +103,19 @@ $idUSer = $_SESSION['user_id'];
                 </div>
               <?php } ?>
             </div>
+            <h2>Peraturan Kamar</h2>
+            <ul>
+              <li>Tidak disediakan garasi mobil.
+              </li>
+              <li>Waktu berkunjung tamu / teman laki2 s/d pukul 22.00 WIB.</li>
+              <li> Apabila ada tamu lelaki didalam kamar, pintu kamar harus selalu terbuka.</li>
+              <li> Untuk menjaga hal-hal yang tidak diinginkan, pintu keluar-masuk agar selalu dalam keadaan tertutup dan terkunci pada malam hari.</li>
+              <li>Pukul 22.00 WIB gerbang utama dan pintu samping dikunci.</li>
+              <li>Kehilangan barang / segala sesuatu menjadi tanggung jawab masing-masing.</li>
+              <li>Jangan membuang sampah atau pembalut kedalam kloset, untuk menghindari penyumbatan pada saluran pembuangan air.</li>
+              <li>Sampah agar dibuang langsung ke tong sampah, jangan disimpan diluar/didepan kamar diacak-acak kucing/tikus.</li>
+              <li>Demi keamanan dan kebersihan bersama agar dapat untuk saling mengingatkan teman kost</li>
+            </ul>
           </div>
         </div>
         <div class="col-md-6 ">
@@ -108,9 +125,10 @@ $idUSer = $_SESSION['user_id'];
               <div class="start-booking-text">
                 <span class="active">Rp <?php echo number_format($harga_kost, 0, ',', '.') ?></span>/bulan
               </div>
-                
-                 <a class="btn-contact-now btn" href="./bookingPage.php?nama_kost=<?php echo $nama_kost?>&harga_kost=<?php echo $harga_kost?>">Pesan Sekarang</a>
-              
+              <p class="dp">DP 50% Untuk Pemesanan</p>
+
+              <a class="btn-contact-now btn mb-4" href="./bookingPage.php?nama_kost=<?php echo $nama_kost ?>&harga_kost=<?php echo $harga_kost ?>">Pesan Sekarang</a>
+                <h6></h6>
             </div>
           </div>
         </div>

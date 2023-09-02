@@ -62,14 +62,14 @@ $idPemesanan = $_GET['id_pemesanan'];
   tr{
     margin-bottom: 10px;
   }
-  span{
+  /* span{
     
     background-color: #fff0da;
     color: #FFAB2D;
     padding: 2px 5px;
     border-radius: 12px;
     font-size: 15px;
-  }
+  } */
   .note {
             color: red;
             font-weight: bold;
@@ -93,6 +93,9 @@ $idPemesanan = $_GET['id_pemesanan'];
     background-color: #fff0da;
     color: #FFAB2D;
     padding: 3px 10px;
+  }
+  .text-silahkan{
+    color: #68CF29;
   }
     </style>
 </head>
@@ -196,23 +199,32 @@ $idPemesanan = $_GET['id_pemesanan'];
                                         <tr>
                                             <td>Status Pemesanan</td>
                                             <td>:</td>
-                                            <td><?php if ($dataHistory['status_pemesanan']== 'P') {
-                                                echo '<span class="light">Menunggu Konfirmasi</span>';
-                                            } elseif($dataHistory['status_pemesanan']== 'B'){
-                                                echo '<span class="badge badge-custom-proses">Pemesanan Dibatalkan</span>';
-                                            }elseif($dataHistory['status_pemesanan'=='A']){
-                                               echo '<span class=" badge badge-custom">Pemesanan Terkonfirmasi</span>';
-                                            }?></td>
+                                            <td><?php  if ($dataHistory['status_pemesanan']=='W'|| $dataHistory['status_pemesanan']=='P') {
+                              echo '<span class="badge badge-custom-done">Menunggu Konfirmasi</span>';
+                            }elseif ($dataHistory['status_pemesanan']=='B') {
+                              echo '<span class="badge badge-custom-proses">Pesanan Dibatalkan</span>';
+                            }elseif ($dataHistory['status_pemesanan']=='R') {
+                              echo '<span class="badge badge-custom-proses">Pesanan Ditolak</span>';
+                            } else{
+                              echo '<span class="badge badge-custom">Pesanan Terkonfirmasi</span>';
+                            }?></td>
                                         </tr>
                                         <tr>
                                             <td>Status Pembayaran</td>
                                             <td>:</td>
-                                            <td><?php if ($dataHistory['status_pembayaran']=='L') {
-                                                echo '<span class="badge badge-custom">Lunas</span>';
-                                            } else {
-                                                echo '<span class="light">Belum Lunas</span>';
-                                            }
-                                              ?></td>
+                                            <td><?php
+                              if ($dataHistory['status_pembayaran']== null) {
+                                ?>
+                                <div id="counter">
+                                
+                                </div>
+                                <?php } elseif ($dataHistory['status_pembayaran']=='D') {
+                                  echo '<span class="badge badge-custom-done">Menunggu Pelunasan</span>';
+                                }elseif($dataHistory['status_pembayaran']=='L'){
+                                  echo '<span class="badge badge-custom">Lunas</span>';
+                                }else {
+                                  echo '<span class="badge-custom-proses badge">Expire</span>';
+                                }?></td>
                                         </tr>
                                         <tr>
                                             <td>Uang Yang Sudah dibayarkan</td>
@@ -225,7 +237,7 @@ $idPemesanan = $_GET['id_pemesanan'];
                                             <td>Rp.<?php echo number_format($dataHistory['sisa_bayar'], 0, ',', '.');?></td>
                                         </tr>
                                         <?php
-                                        if ($dataHistory['status_pembayaran']== 'D') {
+                                        if ($dataHistory['status_pembayaran']== 'D' && $dataHistory['status_pemesanan']!='R') {
                                        ?>    
                                        <tr>
                                             <td class="note">*Note</td>
@@ -234,16 +246,31 @@ $idPemesanan = $_GET['id_pemesanan'];
                                         </tr> 
                                         <?php }
                                         ?>
+                                        <?php
+                                        if ($dataHistory['status_pemesanan']== 'R') {
+                                       ?>    
+                                       <tr>
+                                            <td class="note">*Note</td>
+                                            <td class="note">:</td>
+                                            <td class="note">Periksa Apakah Nominal Sudah Sesuai<br/>Periksa Apakah Bukti Transfer Sudah Sesuai</br><span class="text-silahkan">Silahkan Pesan Kembali !</span></td>
+                                        </tr> 
+                                        <?php }
+                                        ?>
                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <?php }?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <a class="btn btn-cs-order" href="./myHistory.php">Kembali</a>
+                                    <?php
+                                    if ($dataHistory['status_pembayaran']=='L' && $dataHistory['sisa_bayar']==0) {
+                                        ?>
+                                    <a class="btn btn-primary" target="_blank" style="float: right;" href="./printInvoice.php?id_pemesanan=<?php echo $idPemesanan ?>">Cetak Invoice</a>
+                                    <?php }?>
                                 </div>
                             </div>
+                            <?php }?>
                         </div>
                     </div>
                 </div>

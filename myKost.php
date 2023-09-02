@@ -197,7 +197,7 @@ $idUSer = $_SESSION['user_id'];
           <div class="card border-0 shadow-sm">
             <div class="card-body">
               <?php
-              $getDataKamar = mysqli_query($conn, "SELECT tb_pemesanan.nama_pemesan AS nama_pemesan,tb_pemesanan.email_pemesan AS email_pemesan,tb_pemesanan.total_bulan_sewa AS total_bulan_sewa,tb_pemesanan.nama_kost AS nama_kost,tb_pemesanan.harga_kost AS harga_kost, tb_pemesanan.jumlah AS jumlah,tb_pemesanan.status_pembayaran AS status_pembayaran,tb_pemesanan.status_pemesanan AS status_pemesanan,tb_pemesanan.tgk_dari AS tgk_dari,tb_pemesanan.tgl_hingga AS tgl_hingga,tb_pemesanan.created_at AS created_at,tb_pemesanan.sisa_bayar AS sisa_bayar, gambar_kost.photo_kost AS photo_kost FROM tb_pemesanan INNER JOIN gambar_kost ON gambar_kost.nama_kost = tb_pemesanan.nama_kost WHERE  userId = '$idUSer' AND tb_pemesanan.status_pemesanan='A'");
+              $getDataKamar = mysqli_query($conn, "SELECT tb_pemesanan.nama_pemesan AS nama_pemesan,tb_pemesanan.email_pemesan AS email_pemesan,tb_pemesanan.total_bulan_sewa AS total_bulan_sewa,tb_pemesanan.nama_kost AS nama_kost,tb_pemesanan.harga_kost AS harga_kost, tb_pemesanan.jumlah AS jumlah,tb_pemesanan.status_pembayaran AS status_pembayaran,tb_pemesanan.status_pemesanan AS status_pemesanan,tb_pemesanan.tgk_dari AS tgk_dari,tb_pemesanan.tgl_hingga AS tgl_hingga,tb_pemesanan.created_at AS created_at,tb_pemesanan.sisa_bayar AS sisa_bayar, gambar_kost.photo_kost AS photo_kost FROM tb_pemesanan INNER JOIN gambar_kost ON gambar_kost.nama_kost = tb_pemesanan.nama_kost WHERE  userId = '$idUSer' AND tb_pemesanan.status_pemesanan = 'A' GROUP BY tb_pemesanan.nama_kost");
               $i = 1;
               while ($dataKamar = mysqli_fetch_array($getDataKamar)) {
                 $waktuLama = strtotime($dataKamar['tgk_dari']);
@@ -207,7 +207,7 @@ $idUSer = $_SESSION['user_id'];
               ?>
                 <div class="row mb-4">
                   <div class="col-md-4">
-                    <img src="./assets/img/hero.jpg" class="img-thumbnail" alt="">
+                    <img src="./admin/images/imageKost/<?php echo $dataKamar['photo_kost'] ?>" class="img-thumbnail" alt="">
                   </div>
                   <div class="col-md-8">
                     <table>

@@ -21,20 +21,14 @@ $resultHarga = $totalBayar  * (1 - $diskon);
 // tambahan
 $statusPembayaran = "";
 
-if ($jumlah == $hargaKamar) {
+if ($jumlah == $totalBayar) {
     $statusPembayaran = "L";
 } else {
     $statusPembayaran = "D";
 }
 
 
-
 if ($jumlah < $resultHarga) {
-    echo '<script>
-    alert("Nominal Tidak Sesuai");
-    window.location.href = "../../paymentPage.php?id_pemesanan='.$idPemesanan.'";
-    </script>';
-}elseif($jumlah > $hargaKamar){
     echo '<script>
     alert("Nominal Tidak Sesuai");
     window.location.href = "../../paymentPage.php?id_pemesanan='.$idPemesanan.'";

@@ -89,7 +89,7 @@ if (!isset($_SESSION['nama'])) {
                 <div class="col-12">
                 <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Input Data Bank</h4>
+                                <h4 class="card-title">Update Gallery Kost</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
@@ -107,7 +107,7 @@ if (!isset($_SESSION['nama'])) {
                                         </div>
                                         <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>judul gallery kost</label>
+                                            <label>Deskripsi gallery kost</label>
                                             <input hidden type="text" class="form-control input-default " placeholder="Nama Fasilitas" name="id" value="<?php echo $dataFasilitas['id']?>">
                                             <input hidden type="text" class="form-control input-default " placeholder="Nama Fasilitas" name="old_photo" value="<?php echo $dataFasilitas['photo']?>">
                                             <input hidden type="text" class="form-control input-default " placeholder="Nama Fasilitas" name="created_at" value="<?php echo $dataFasilitas['created_at']?>">

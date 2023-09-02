@@ -153,7 +153,7 @@ if (!isset($_SESSION['nama'])) {
                                                     } elseif ($dataFasilitas['status'] == 'T') {
                                                         echo '<span class="badge light badge-warning">Terpesan</span>';
                                                     } else{
-                                                        echo '<a href="#" class="badge light badge-danger"><span>Terisi</span></a>';
+                                                        echo '<a href="./controller/kost/updateStatus.php?nama_kamar='.$dataFasilitas['nama_kost'].'" class="badge light badge-danger"><span>Terisi</span></a>';
                                                     }
                                                     
                                                     ?>

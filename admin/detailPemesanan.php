@@ -108,7 +108,7 @@ $nama_kamar = $_GET['nama_kost'];
                     <div class="card">
                         <div class="card-body">
                            <?php
-                           $getdataPemesanan = mysqli_query($conn, "SELECT tb_pemesanan.id AS id_pemesanan,tb_pemesanan.nama_pemesan AS nama_pemesan,tb_pemesanan.email_pemesan AS email_pemesan,tb_pemesanan.total_bulan_sewa AS total_bulan_sewa,tb_pemesanan.harga_kost AS harga_kost,tb_pemesanan.no_hp_pemesan AS no_hp_pemesan,tb_pemesanan.tgk_dari AS tgk_dari,tb_pemesanan.tgl_hingga AS tgl_hingga,tb_pemesanan.nama_kost AS nama_kost,tb_pemesanan.jumlah AS jumlah,tb_pemesanan.sisa_bayar AS sisa_bayar,tb_pemesanan.bukti_tf AS bukti_tf,tb_pemesanan.asal_bank AS asal_bank,tb_pemesanan.nama_pengirim AS nama_pengirim,tb_pemesanan.created_at AS created_at,tb_pemesanan.status_pemesanan AS status_pemesanan,bank.nama_bank AS nama_bank,bank.nama_pemilik AS nama_pemilik FROM tb_pemesanan INNER JOIN bank ON bank.id = tb_pemesanan.via_bank WHERE tb_pemesanan.id = '$idPesanan' ");
+                           $getdataPemesanan = mysqli_query($conn, "SELECT tb_pemesanan.id AS id_pemesanan,tb_pemesanan.nama_pemesan AS nama_pemesan,tb_pemesanan.email_pemesan AS email_pemesan,tb_pemesanan.total_bulan_sewa AS total_bulan_sewa,tb_pemesanan.harga_kost AS harga_kost,tb_pemesanan.no_hp_pemesan AS no_hp_pemesan,tb_pemesanan.tgk_dari AS tgk_dari,tb_pemesanan.tgl_hingga AS tgl_hingga,tb_pemesanan.nama_kost AS nama_kost,tb_pemesanan.jumlah AS jumlah,tb_pemesanan.sisa_bayar AS sisa_bayar,tb_pemesanan.status_pembayaran AS status_pembayaran,tb_pemesanan.bukti_tf AS bukti_tf,tb_pemesanan.asal_bank AS asal_bank,tb_pemesanan.nama_pengirim AS nama_pengirim,tb_pemesanan.created_at AS created_at,tb_pemesanan.status_pemesanan AS status_pemesanan,bank.nama_bank AS nama_bank,bank.nama_pemilik AS nama_pemilik, user.photo_ktp AS photo_ktp FROM tb_pemesanan INNER JOIN bank ON bank.id = tb_pemesanan.via_bank INNER JOIN user ON user.id = tb_pemesanan.userId WHERE tb_pemesanan.id = '$idPesanan' ");
                            while ($dataPemesanan = mysqli_fetch_array($getdataPemesanan)) {
                            ?>
                             <div class="row">
@@ -122,10 +122,38 @@ $nama_kamar = $_GET['nama_kost'];
                                     <p>NO HP Pemesan : <?php echo $dataPemesanan['no_hp_pemesan']?></p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p>Tanggal Dari : <?php echo $dataPemesanan['tgk_dari']?></p>
+                                    <p class="mb-2 font-weight-bold">Identitas Diri :</p>
+                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter1">
+                                    <div class="img-bukti-tf mb-2">
+                                    <img src="../assets/img/imageKtp/<?php echo $dataPemesanan['photo_ktp']  ?>" alt="">
+                                    </div>
+                                    </a>
+                                         <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter1">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Identitas Diri</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <img src="../assets/img/imageKtp/<?php echo $dataPemesanan['photo_ktp']  ?>" alt="">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end modal -->
                                 </div>
                                 <div class="col-md-4">
-                                    <p>Tanggal Hingga : <?php echo $dataPemesanan['tgl_hingga']?></p>
+                                    <p>Tanggal Sewa Dari : <?php $sewaDari = strtotime($dataPemesanan['tgk_dari']); echo date('d F Y', $sewaDari) ?></p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Tanggal Sewa Hingga : <?php $sewaHingga = strtotime($dataPemesanan['tgl_hingga']); echo date('d F Y', $sewaHingga); ?></p>
                                 </div>
                                 <div class="col-md-4">
                                     <p>Nama Kamar : <?php echo $dataPemesanan['nama_kost']?></p>
@@ -149,6 +177,19 @@ $nama_kamar = $_GET['nama_kost'];
                                     <p class="font-weight-bold">Sisa Bayar : Rp. <?php echo  number_format($dataPemesanan['sisa_bayar'], 0, ',', '.')?></p>
                                 </div>
                                 <div class="col-md-4">
+                                <p>Status Pembayaran : <span class=" <?php if ($dataPemesanan['status_pembayaran']=='L') {
+                                        echo 'badge light badge-success';
+                                    } else {
+                                        echo 'badge light badge-warning';
+                                    }
+                                     ?>"><?php if ($dataPemesanan['status_pembayaran']=='L') {
+                                        echo 'Lunas';
+                                    } else {
+                                        echo 'Acepted';
+                                    }
+                                     ?></span></p>
+                                </div>
+                                <div class="col-md-4">
                                     <p class="mb-2 font-weight-bold">Bukti Transfer :</p>
                                     <a href="" data-toggle="modal" data-target="#exampleModalCenter">
                                     <div class="img-bukti-tf mb-2">
@@ -160,7 +201,7 @@ $nama_kamar = $_GET['nama_kost'];
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Modal title</h5>
+                                                    <h5 class="modal-title">Bukti Pembayaran</h5>
                                                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                                     </button>
                                                 </div>
@@ -174,7 +215,7 @@ $nama_kamar = $_GET['nama_kost'];
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                    <!-- end modal -->
                                 </div>
                                 <div class="col-md-4">
                                     <p >Akun Bank Yang Dituju : <span class="font-weight-bold"><?php echo  $dataPemesanan['nama_bank']?>/<?php echo  $dataPemesanan['nama_pemilik']?></span> </p>
@@ -191,18 +232,34 @@ $nama_kamar = $_GET['nama_kost'];
                                 <div class="col-md-4">
                                     <p>Status Pemesanan : <span class=" <?php if ($dataPemesanan['status_pemesanan']=='P') {
                                         echo 'badge light badge-warning';
-                                    } else {
+                                    } elseif ($dataPemesanan['status_pemesanan']=='R') {
+                                        echo 'badge light badge-danger';
+                                    } else{
                                         echo 'badge light badge-success';
                                     }
                                      ?>"><?php if ($dataPemesanan['status_pemesanan']=='P') {
                                         echo 'Pending';
-                                    } else {
+                                    } elseif ($dataPemesanan['status_pemesanan']=='R') {
+                                        echo 'Rejected';
+                                    } else{
                                         echo 'Acepted';
                                     }
                                      ?></span></p>
-                                    <a href="./controller/pemesanan/updateStatus.php?id=<?php echo $dataPemesanan['id_pemesanan']?>&nama_kost=<?php echo $dataPemesanan['nama_kost']?>" class="btn btn-primary btn-sm">Konfirmasi Pemesanan</a>
                                 </div>
                             </div>
+                            <?php
+                            if ($dataPemesanan['status_pemesanan']== 'P') {?>
+                            <a href="./dataPemesanan.php" class="btn btn-warning btn-sm text-white">Kembali</a>
+                            <a href="./controller/pemesanan/updateStatus.php?id=<?php echo $dataPemesanan['id_pemesanan']?>&nama_kost=<?php echo $dataPemesanan['nama_kost']?>" class="btn btn-primary btn-sm float-right">Konfirmasi Pemesanan</a>
+                            <a href="./controller/pemesanan/reject.php?id=<?php echo $dataPemesanan['id_pemesanan']?>&nama_kost=<?php echo $dataPemesanan['nama_kost']?>" class="btn btn-danger btn-sm float-right mr-4">Reject</a>
+                            <?php } elseif ($dataPemesanan['status_pemesanan']== 'R') {
+                                echo '<a href="./dataPemesanan.php" class="btn btn-warning btn-sm text-white">Kembali</a>';
+                                echo '<span class="badge light badge-danger float-right">Pemesanan Ditolak</span>';
+                            }else{
+                                echo '<a href="./dataPemesanan.php" class="btn btn-warning btn-sm text-white">Kembali</a>';
+                                echo '<span class="badge light badge-success float-right">Pemesanan Terkonfirmasi</span>';
+                            }?>
+                            
                            <?php }?>
                         </div>
                     </div>

@@ -104,17 +104,21 @@ if (!isset($_SESSION['nama'])) {
       height: 200px;
       /* margin-bottom: 10px; */
       cursor: pointer;
+      margin-bottom: 50px;
     }
 
     .zoom img {
       width: 100%;
-      max-height: 300px;
-      transition: transform .2s;
+      max-height: 250px;
+      transition: transform 0.5s;
+      border-radius: 8px;
+      margin-bottom: 50px;
       /* Animation */
     }
 
     .zoom img:hover {
       transform: scale(1.5);
+      margin-bottom: 50px;
     }
   </style>
 </head>
@@ -282,7 +286,7 @@ if (!isset($_SESSION['nama'])) {
                  <span>
                  <div class="room-with-beauty-backyeard-image">
                       <img src="./admin/images/imageKost/<?php echo $dataKost['photo_kost']?>" alt="" srcset="">
-                      <span class="diskon">New Arrival</span>
+                      <!-- <span class="diskon">New Arrival</span> -->
                       <p class="room-with-beauty-backyeard-title"><?php echo $dataKost['nama']?></p>
                       <p class="room-with-beauty-backyeard-location badge badge-success">
                         <span class=" <?php if ($dataKost['status']=='Y') {
@@ -425,12 +429,13 @@ if (!isset($_SESSION['nama'])) {
         while ($dataGallery = mysqli_fetch_array($getDataGallery)) {
         ?>
         <div class="col-md-3">
-          <div class="card border-0">
+          <div class="card border-0 shadow-sm">
             <div class="card-body">
               <div class="zoom">
                 <img src="./admin/images/image-gallery/<?php echo $dataGallery['photo']?>" class="" alt="">
               </div>
-              <h3 style="text-align: center;"><?php echo $dataGallery['judul'] ?></h3>
+              <!-- <h3 style="text-align: center;"></h3> -->
+              <p class="mt-4" style="margin-top: 50px;"><?php echo $dataGallery['judul'] ?></p>
             </div>
           </div>
         </div>

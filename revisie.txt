@@ -22,5 +22,19 @@
 9. Pembayaran Sepenuhnya Error 1
 10. bukti transfer dizoom 1
 11. Nama,Email,Nohp dihapus 1
-12. Testimonial ganti jadi gallery 
+12. Testimonial ganti jadi gallery
 
+#laundry-sepatu
+1. menambahkan panduan pemesanan
+2. cetak invoice pemesanan untuk user dan admin
+3. rekap data perbulan
+4. progres dikirim ke email
+5. menampilkan tanggal pengambilan sepatu 
+
+#kost
+1. popup nominal tidak sesuai dengan minimal jumlah pembayaran
+2. Popup Nominal Pembayaran Lunas Tidak Sesuai
+3. misalkan milih dp terus bayar nya sesuai dengan total harga, maka error
+4. datapemesanan yang statusnya lunas ama yang dp
+5. menambahkan tombol reject yang gunanya itu untuk membatalkan pesanan dari admin
+6. menampilkan status pemesanan pada user saat direject oleh admin, dan user memiliki hak akses untuk menginputkan kembali transaksi pembayaran

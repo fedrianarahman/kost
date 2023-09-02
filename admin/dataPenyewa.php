@@ -112,7 +112,7 @@ if (!isset($_SESSION['nama'])) {
                         ?>
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Data Pemesanan</h4>
+                                <h4 class="card-title">Data Penyewa</h4>
                                 <!-- <a href="./addKost.php" class="btn btn-sm btn-info">+ Add Kamar Kost</a> -->
                             </div>
                             <div class="card-body">
@@ -122,17 +122,19 @@ if (!isset($_SESSION['nama'])) {
                                             <tr>
                                                 <th>#</th>
                                                 <th>Nama Pemesan</th>
+                                                <th>NO HP</th>
                                                 <th>Nama Kamar</th>
-                                                <th>Status Pemesanan</th>
                                                 <th>Tanggal Pemesanan</th>
+                                                <th>Tunggakan</th>
+                                                <th>Sewa Dari</th>
+                                                <th>Sewa Hingga</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             // get data
-                                            $getPemesanan = mysqli_query($conn, "SELECT * FROM tb_pemesanan
-                                            WHERE status_pemesanan = 'A'  ORDER BY tb_pemesanan.id ASC 
+                                            $getPemesanan = mysqli_query($conn, "SELECT * FROM tb_pemesanan WHERE DATE_FORMAT(created_at, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') AND status_pemesanan ='A' ORDER BY tb_pemesanan.id ASC 
                                             ");
                                             $i = 1;
                                             while ($dataPemesanan = mysqli_fetch_array($getPemesanan)) {
@@ -142,23 +144,29 @@ if (!isset($_SESSION['nama'])) {
                                                 <td>
                                                 <?php echo $dataPemesanan['nama_pemesan']?>
                                                 </td>
+                                                <td><a href="https://api.whatsapp.com/send?phone=<?php echo $dataPemesanan['no_hp_pemesan'] ?>&text=Halo! <?php echo $dataPemesanan['nama_pemesan'] ?> Saya ingin berbicara dengan Anda." target="_blank"><?php echo $dataPemesanan['no_hp_pemesan']?></a></td>
                                                 <td><?php echo $dataPemesanan['nama_kost']?></td>
-                                                <td>
-                                                    <?php
-                                                    if ($dataPemesanan['status_pemesanan'] == 'A') {
-                                                        echo '<span class="badge light badge-success">Accepted</span>';
-                                                    } else {
-                                                        echo '<a href="#" class="badge light badge-warning"><span>Pending</span></a>';
-                                                    }
-                                                    
+                                                <td class=""><?php $created_at_old = strtotime($dataPemesanan['created_at']); echo date('d F Y', $created_at_old) ?></td>
+                                                <!-- <td><span class="<?php if ($dataPemesanan['sisa_bayar'] !='0') {
+                                                    echo 'text-danger';
+                                                } else {
+                                                    echo '';
+                                                }
+                                                 ?>">Rp.<?php echo number_format($dataPemesanan['sisa_bayar'], 0, ',', '.') ?></span></td> -->
+                                                 <td><?php if ($dataPemesanan['sisa_bayar'] != 0) {
                                                     ?>
-                                                </td>
-                                                <td><?php echo $dataPemesanan['created_at']?></td>
+                                                    <a href="./addPelunasan.php?id_pemesanan=<?php echo $dataPemesanan['id']?>" class="text-danger">Rp.<?php echo number_format($dataPemesanan['sisa_bayar'], 0, ',', '.') ?></a>
+                                                    <?php }else {
+                                                        ?>
+                                                        <span>Rp.<?php echo number_format($dataPemesanan['sisa_bayar'], 0, ',', '.') ?></span>
+                                                    <?php }?></td>
+                                                <td><?php $created_at_old = strtotime($dataPemesanan['tgk_dari']); echo date('d F Y', $created_at_old) ?></td>
+                                                <td><?php $created_at_old = strtotime($dataPemesanan['tgl_hingga']); echo date('d F Y', $created_at_old) ?></td>
                                                 <td>
 													<div class="d-flex">
-														<a href="./detailPemesanan.php?id_pemesanan=<?php echo $dataPemesanan['id']?>&nama_kost=<?php echo $dataPemesanan['nama_kost']?>" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fa fa-eye" data-toggle="tooltip" title="Detail"></i></a>
+														<a href="./detailPenyewa.php?id_pemesanan=<?php echo $dataPemesanan['id']?>&nama_kost=<?php echo $dataPemesanan['nama_kost']?>" class="btn btn-warning shadow btn-xs sharp mr-1"><i class="fa fa-eye" data-toggle="tooltip" title="Detail"></i></a>
                                                         
-														<a href="./controller/kost/delete.php?id=<?php echo $dataPemesanan['id']?>&nama_kost=<?php echo $dataPemesanan['nama_kost']?>" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+														<a href="#" class="btn btn-success shadow btn-xs sharp"><i class="fa fa-cog"></i></a>
 													</div>												
 												</td>												
                                             </tr>
